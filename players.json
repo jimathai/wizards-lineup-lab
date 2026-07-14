@@ -1,0 +1,407 @@
+{
+  "season": "2025-26",
+  "updated": "2026-07-14",
+  "players": [
+    {
+      "id": 1641731,
+      "name": "Bilal Coulibaly",
+      "pos": "G/F",
+      "height": 79,
+      "weight": 195,
+      "age": 21,
+      "number": "0",
+      "current": {
+        "pts": 12.3,
+        "reb": 5.0,
+        "ast": 3.4,
+        "stl": 1.3,
+        "blk": 1.0
+      },
+      "career": {
+        "pts": 10.4,
+        "reb": 4.5,
+        "ast": 2.5,
+        "stl": 1.0,
+        "blk": 0.7
+      }
+    },
+    {
+      "id": 1641774,
+      "name": "Tristan Vukcevic",
+      "pos": "F/C",
+      "height": 84,
+      "weight": 220,
+      "age": 23,
+      "number": "00",
+      "current": {
+        "pts": 9.4,
+        "reb": 3.7,
+        "ast": 1.2,
+        "stl": 0.4,
+        "blk": 0.5
+      },
+      "career": {
+        "pts": 8.0,
+        "reb": 3.6,
+        "ast": 1.0,
+        "stl": 0.4,
+        "blk": 0.5
+      }
+    },
+    {
+      "id": 1641715,
+      "name": "Cam Whitmore",
+      "pos": "F",
+      "height": 78,
+      "weight": 230,
+      "age": 22,
+      "number": "1",
+      "current": {
+        "pts": 10.8,
+        "reb": 3.7,
+        "ast": 1.0,
+        "stl": 0.7,
+        "blk": 0.3
+      },
+      "career": {
+        "pts": 11.2,
+        "reb": 3.8,
+        "ast": 0.9,
+        "stl": 0.7,
+        "blk": 0.3
+      }
+    },
+    {
+      "id": 1629027,
+      "name": "Trae Young",
+      "pos": "G",
+      "height": 74,
+      "weight": 164,
+      "age": 27,
+      "number": "3",
+      "current": {
+        "pts": 24.2,
+        "reb": 3.1,
+        "ast": 11.6,
+        "stl": 1.2,
+        "blk": 0.2
+      },
+      "career": {
+        "pts": 25.3,
+        "reb": 3.5,
+        "ast": 9.8,
+        "stl": 1.0,
+        "blk": 0.2
+      }
+    },
+    {
+      "id": 1643407,
+      "name": "AJ Dybantsa",
+      "pos": "F",
+      "height": 81,
+      "weight": 210,
+      "age": 19,
+      "number": "4",
+      "current": null,
+      "career": null
+    },
+    {
+      "id": 1642364,
+      "name": "Jamir Watkins",
+      "pos": "F",
+      "height": 78,
+      "weight": 210,
+      "age": 25,
+      "number": "5",
+      "current": {
+        "pts": 4.5,
+        "reb": 2.2,
+        "ast": 0.8,
+        "stl": 0.5,
+        "blk": 0.2
+      },
+      "career": {
+        "pts": 4.5,
+        "reb": 2.2,
+        "ast": 0.8,
+        "stl": 0.5,
+        "blk": 0.2
+      }
+    },
+    {
+      "id": 1629028,
+      "name": "Deandre Ayton",
+      "pos": "C",
+      "height": 84,
+      "weight": 252,
+      "age": 27,
+      "number": "5",
+      "current": {
+        "pts": 14.4,
+        "reb": 10.2,
+        "ast": 1.6,
+        "stl": 0.8,
+        "blk": 1.0
+      },
+      "career": {
+        "pts": 16.4,
+        "reb": 10.5,
+        "ast": 1.6,
+        "stl": 0.7,
+        "blk": 1.0
+      }
+    },
+    {
+      "id": 1642267,
+      "name": "Bub Carrington",
+      "pos": "G",
+      "height": 76,
+      "weight": 190,
+      "age": 20,
+      "number": "7",
+      "current": {
+        "pts": 11.7,
+        "reb": 4.0,
+        "ast": 5.2,
+        "stl": 0.9,
+        "blk": 0.3
+      },
+      "career": {
+        "pts": 10.7,
+        "reb": 4.1,
+        "ast": 4.9,
+        "stl": 0.8,
+        "blk": 0.2
+      }
+    },
+    {
+      "id": 1630551,
+      "name": "Justin Champagnie",
+      "pos": "G/F",
+      "height": 78,
+      "weight": 206,
+      "age": 25,
+      "number": "9",
+      "current": {
+        "pts": 11.6,
+        "reb": 5.6,
+        "ast": 1.4,
+        "stl": 1.0,
+        "blk": 0.5
+      },
+      "career": {
+        "pts": 7.6,
+        "reb": 4.2,
+        "ast": 1.0,
+        "stl": 0.7,
+        "blk": 0.4
+      }
+    },
+    {
+      "id": 1642848,
+      "name": "Tre Johnson",
+      "pos": "G",
+      "height": 77,
+      "weight": 190,
+      "age": 20,
+      "number": "12",
+      "current": {
+        "pts": 12.2,
+        "reb": 2.8,
+        "ast": 2.0,
+        "stl": 0.7,
+        "blk": 0.2
+      },
+      "career": {
+        "pts": 12.2,
+        "reb": 2.8,
+        "ast": 2.0,
+        "stl": 0.7,
+        "blk": 0.2
+      }
+    },
+    {
+      "id": 1630252,
+      "name": "Sharife Cooper",
+      "pos": "G",
+      "height": 72,
+      "weight": 176,
+      "age": 25,
+      "number": "13",
+      "current": {
+        "pts": 8.1,
+        "reb": 2.1,
+        "ast": 3.0,
+        "stl": 0.6,
+        "blk": 0.1
+      },
+      "career": {
+        "pts": 4.8,
+        "reb": 1.4,
+        "ast": 2.2,
+        "stl": 0.4,
+        "blk": 0.1
+      }
+    },
+    {
+      "id": 1630264,
+      "name": "Anthony Gill",
+      "pos": "F",
+      "height": 79,
+      "weight": 230,
+      "age": 33,
+      "number": "16",
+      "current": {
+        "pts": 5.8,
+        "reb": 2.9,
+        "ast": 1.3,
+        "stl": 0.4,
+        "blk": 0.3
+      },
+      "career": {
+        "pts": 3.9,
+        "reb": 2.0,
+        "ast": 0.7,
+        "stl": 0.2,
+        "blk": 0.2
+      }
+    },
+    {
+      "id": 1642273,
+      "name": "Kyshawn George",
+      "pos": "F",
+      "height": 80,
+      "weight": 200,
+      "age": 22,
+      "number": "18",
+      "current": {
+        "pts": 14.8,
+        "reb": 5.1,
+        "ast": 4.5,
+        "stl": 0.9,
+        "blk": 0.6
+      },
+      "career": {
+        "pts": 11.5,
+        "reb": 4.7,
+        "ast": 3.4,
+        "stl": 0.8,
+        "blk": 0.5
+      }
+    },
+    {
+      "id": 203114,
+      "name": "Khris Middleton",
+      "pos": "F",
+      "height": 79,
+      "weight": 222,
+      "age": 34,
+      "number": "20",
+      "current": {
+        "pts": 11.9,
+        "reb": 3.7,
+        "ast": 4.1,
+        "stl": 0.8,
+        "blk": 0.2
+      },
+      "career": {
+        "pts": 16.8,
+        "reb": 4.7,
+        "ast": 4.0,
+        "stl": 1.1,
+        "blk": 0.2
+      }
+    },
+    {
+      "id": 1642259,
+      "name": "Alex Sarr",
+      "pos": "C",
+      "height": 84,
+      "weight": 205,
+      "age": 21,
+      "number": "20",
+      "current": {
+        "pts": 16.5,
+        "reb": 7.2,
+        "ast": 2.7,
+        "stl": 0.8,
+        "blk": 1.7
+      },
+      "career": {
+        "pts": 14.7,
+        "reb": 6.8,
+        "ast": 2.5,
+        "stl": 0.8,
+        "blk": 1.6
+      }
+    },
+    {
+      "id": 203076,
+      "name": "Anthony Davis",
+      "pos": "F/C",
+      "height": 82,
+      "weight": 253,
+      "age": 33,
+      "number": "23",
+      "current": {
+        "pts": 24.7,
+        "reb": 11.6,
+        "ast": 3.5,
+        "stl": 1.2,
+        "blk": 2.2
+      },
+      "career": {
+        "pts": 24.1,
+        "reb": 10.7,
+        "ast": 2.6,
+        "stl": 1.3,
+        "blk": 2.3
+      }
+    },
+    {
+      "id": 1642860,
+      "name": "Will Riley",
+      "pos": "F",
+      "height": 81,
+      "weight": 180,
+      "age": 20,
+      "number": "27",
+      "current": {
+        "pts": 10.3,
+        "reb": 2.9,
+        "ast": 2.0,
+        "stl": 0.5,
+        "blk": 0.2
+      },
+      "career": {
+        "pts": 10.3,
+        "reb": 2.9,
+        "ast": 2.0,
+        "stl": 0.5,
+        "blk": 0.2
+      }
+    },
+    {
+      "id": 1643590,
+      "name": "Felix Okpara",
+      "pos": "C",
+      "height": 83,
+      "weight": 235,
+      "age": 22,
+      "number": null,
+      "current": null,
+      "career": null
+    },
+    {
+      "id": 1642882,
+      "name": "Julian Reese",
+      "pos": "F",
+      "height": 81,
+      "weight": 230,
+      "age": 23,
+      "number": null,
+      "current": null,
+      "career": null
+    }
+  ]
+}
