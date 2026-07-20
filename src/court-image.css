@@ -1,0 +1,5 @@
+.court-stage {
+  background:
+    linear-gradient(rgba(3, 10, 18, .06), rgba(3, 10, 18, .06)),
+    url('/half-court-ai.png') center / cover no-repeat;
+}

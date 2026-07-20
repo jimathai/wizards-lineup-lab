@@ -1,0 +1,255 @@
+.featured-player-panel {
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid #213654;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(13, 31, 52, .98), rgba(7, 20, 35, .98));
+  box-shadow: 0 16px 38px rgba(0, 0, 0, .22);
+}
+
+/* Uses the same visual language and classes as the Archetype Legend. */
+.featured-archetype.archetype-legend-item {
+  width: 100%;
+  min-height: 58px;
+  padding: 12px 16px;
+  cursor: default;
+  border-bottom: 1px solid #223853;
+}
+
+.featured-archetype .legend-swatch {
+  height: 34px;
+}
+
+.featured-archetype .legend-copy strong {
+  font-size: 13px;
+}
+
+.featured-archetype .legend-copy small {
+  margin-top: 3px;
+  font-size: 9px;
+  white-space: normal;
+}
+
+.featured-player-identity {
+  padding: 18px 18px 15px;
+  border-bottom: 1px solid #243b59;
+}
+
+.featured-player-identity h2 {
+  margin: 0;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 950;
+  letter-spacing: -.6px;
+  line-height: 1.03;
+}
+
+.featured-player-identity p {
+  margin: 7px 0 0;
+  color: #b5c2d3;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.featured-player-image {
+  height: 245px;
+  overflow: hidden;
+  border-bottom: 1px solid #243b59;
+  background: radial-gradient(circle at 50% 30%, #243c5e, #111f33 68%);
+}
+
+.featured-player-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: top center;
+}
+
+.featured-player-image-fallback {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: rgba(255, 255, 255, .25);
+  font-size: 64px;
+  font-weight: 950;
+  letter-spacing: -4px;
+}
+
+.featured-player-stat-sections {
+  display: grid;
+}
+
+.featured-stat-section {
+  padding: 13px 14px 14px;
+  border-bottom: 1px solid #203650;
+}
+
+.featured-stat-section:last-child {
+  border-bottom: 0;
+}
+
+.featured-stat-section h3 {
+  margin: 0 0 8px;
+  color: #aebbd0;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.featured-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+
+.featured-stat-grid-six {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+/* Label and value sit side by side: Age 19, PPG 18.4, etc. */
+.featured-stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+  min-height: 38px;
+  padding: 8px 2px;
+  border: 1px solid #29415f;
+  border-radius: 0;
+  background: linear-gradient(180deg, #142740, #0e1e33);
+  white-space: nowrap;
+}
+
+.featured-stat span {
+  color: #91a2b9;
+  font-size: 9px;
+  font-weight: 850;
+  letter-spacing: .35px;
+}
+
+.featured-stat strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1;
+  text-overflow: ellipsis;
+}
+
+.featured-player-empty {
+  min-height: 340px;
+  display: grid;
+  place-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.featured-player-empty h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.featured-player-empty p {
+  max-width: 260px;
+  margin: 7px auto 0;
+  color: #91a2b9;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+@media (max-width: 680px) {
+  .featured-player-identity h2 {
+    font-size: 28px;
+  }
+
+  .featured-player-identity p {
+    font-size: 15px;
+  }
+
+  .featured-player-image {
+    height: 220px;
+  }
+
+  .featured-stat-grid-six {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .featured-stat {
+    gap: 3px;
+    padding-inline: 5px;
+  }
+
+  .featured-stat span {
+    font-size: 8px;
+  }
+
+  .featured-stat strong {
+    font-size: 12px;
+  }
+}
+
+/* Player Focus inline stat alignment. */
+.featured-stat {
+  justify-content: space-between;
+  gap: 8px;
+  text-align: left;
+}
+
+.featured-stat span,
+.featured-stat strong {
+  font-size: 14px;
+}
+
+.featured-stat span {
+  font-weight: 400;
+}
+
+.featured-stat strong {
+  font-weight: 900;
+}
+
+.featured-stat strong {
+  margin-left: auto;
+  text-align: right;
+}
+
+@media (max-width: 680px) {
+  .featured-stat span,
+  .featured-stat strong {
+    font-size: 12px;
+  }
+}
+
+/* Compact Player Focus sections: flush square cells with inline left-aligned values. */
+.featured-stat-section {
+  padding: 0;
+}
+
+.featured-stat-section h3 {
+  margin: 7px 0 3px;
+  padding: 0 8px;
+}
+
+.featured-stat-grid {
+  gap: 0;
+}
+
+.featured-stat {
+  justify-content: flex-start;
+  gap: 4px;
+  min-height: 34px;
+  margin: 0;
+  padding: 6px 2px;
+  border-radius: 0;
+  text-align: left;
+}
+
+.featured-stat strong {
+  margin-left: 0;
+  text-align: left;
+}

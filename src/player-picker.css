@@ -1,0 +1,144 @@
+.picker-page-dismiss {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.picker-popover {
+  position: fixed;
+  z-index: 999;
+  width: min(340px, calc(100vw - 24px));
+  max-height: min(460px, calc(100vh - 24px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #101d30;
+  border: 1px solid #355074;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, .48);
+}
+
+.picker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 15px 10px;
+}
+
+.picker-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.picker-close {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 22px;
+  line-height: 1;
+  background: #1c2d48;
+}
+
+.picker-search {
+  margin: 0 14px 10px;
+  padding: 10px 11px;
+  color: white;
+  background: #091526;
+  border: 1px solid #304866;
+  border-radius: 10px;
+  outline: none;
+}
+
+.picker-search:focus {
+  border-color: #4f8fe8;
+  box-shadow: 0 0 0 3px rgba(79, 143, 232, .14);
+}
+
+.picker-list {
+  display: grid;
+  gap: 6px;
+  padding: 0 10px 12px;
+  overflow: auto;
+}
+
+.picker-player-row {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  padding: 6px 9px;
+  text-align: left;
+  background: #162842;
+  border: 1px solid transparent;
+}
+
+.picker-player-row:hover {
+  border-color: #4d6f9d;
+  background: #1b3152;
+}
+
+.picker-player-row img {
+  width: 38px;
+  height: 29px;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 7px;
+  background: #263854;
+}
+
+.picker-player-name {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.picker-player-position {
+  min-width: 34px;
+  color: #aebbd0;
+  font-size: 10px;
+  text-align: right;
+}
+
+.picker-empty {
+  padding: 22px 10px;
+  color: #9eacc2;
+  text-align: center;
+}
+
+.empty-slot.clickable {
+  width: 100%;
+  min-height: 120px;
+  cursor: pointer;
+  transition:
+    border-color .16s ease,
+    background .16s ease,
+    color .16s ease,
+    transform .16s ease;
+}
+
+.empty-slot.clickable:hover {
+  color: white;
+  background: rgba(12, 77, 162, .22);
+  border-color: #4f8fe8;
+  transform: translateY(-1px);
+}
+
+.plus-slot {
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 1;
+  color: #8fa5c3;
+}
