@@ -1,0 +1,10 @@
+begin;
+with player_ids(slug,nba_player_id,experience_years) as (values
+('victor-wembanyama',1641705,3),('dylan-harper',1642844,1),('stephon-castle',1642264,2),('carter-bryant',1642868,1),('deaaron-fox',1628368,9),('keldon-johnson',1629640,7),('devin-vassell',1630170,6),('harrison-barnes',203084,14),('jordan-mclaughlin',1629162,7),('luke-kornet',1628436,9),('kelly-olynyk',203482,13),('julian-champagnie',1630577,4))
+update public.players p set nba_player_id=ids.nba_player_id,legacy_player_id=coalesce(p.legacy_player_id,ids.nba_player_id),experience_years=ids.experience_years,image_url='https://cdn.nba.com/headshots/nba/latest/1040x760/'||ids.nba_player_id::text||'.png',age=extract(year from age(current_date,p.birth_date))::int,updated_at=now() from player_ids ids where p.slug=ids.slug;
+update public.players p set age=extract(year from age(current_date,p.birth_date))::int,updated_at=now() where p.id in (select player_id from public.team_rosters where team_id='spurs' and season='2026-27') and p.birth_date is not null;
+with stat_source(slug,pts,reb,ast) as (values ('victor-wembanyama',25.0,11.5,3.1),('dylan-harper',11.8,3.4,3.9),('deaaron-fox',18.6,3.8,6.2))
+insert into public.player_stats(player_id,team_id,season,competition,stat_type,points_per_game,rebounds_per_game,assists_per_game,source_name,source_url,source_updated_at)
+select p.id,'spurs','2026-27','nba','season',s.pts,s.reb,s.ast,'NBA.com 2025-26 profile summary','https://www.nba.com/team/1610612759',now() from stat_source s join public.players p on p.slug=s.slug
+on conflict(player_id,team_id,season,competition,stat_type) do update set points_per_game=excluded.points_per_game,rebounds_per_game=excluded.rebounds_per_game,assists_per_game=excluded.assists_per_game,source_name=excluded.source_name,source_url=excluded.source_url,source_updated_at=excluded.source_updated_at,updated_at=now();
+notify pgrst,'reload schema'; commit;

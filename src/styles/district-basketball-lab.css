@@ -2658,3 +2658,991 @@ button {
     max-height: 480px;
   }
 }
+
+/* TEAM-AWARE BRANDING */
+.app-frame { --team-primary:#002B5C; --team-secondary:#E31837; --team-accent:#FFF; --team-surface:#081523; --team-glow:#C8102E; background:radial-gradient(circle at 48% -12%,color-mix(in srgb,var(--team-primary) 72%,transparent),transparent 36%),linear-gradient(145deg,color-mix(in srgb,var(--team-surface) 92%,#000),#06101d 54%,color-mix(in srgb,var(--team-primary) 34%,#06101d)); }
+.district-top-bar { border-bottom-color:color-mix(in srgb,var(--team-secondary) 48%,#1d304c); background:linear-gradient(100deg,color-mix(in srgb,var(--team-surface) 96%,transparent),color-mix(in srgb,var(--team-primary) 34%,#050f1c)); }
+.district-brand-mark { width:54px; height:54px; overflow:hidden; border:1px solid color-mix(in srgb,var(--team-accent) 45%,transparent); background:linear-gradient(145deg,var(--team-secondary),var(--team-primary)); box-shadow:0 0 24px color-mix(in srgb,var(--team-glow) 35%,transparent); }
+.district-brand-mark img { width:88%; height:88%; object-fit:contain; }
+.district-brand-block span,.section-kicker { color:var(--team-secondary); }
+.share-button,.formation-tabs button.active { border-color:var(--team-secondary)!important; background:linear-gradient(180deg,color-mix(in srgb,var(--team-secondary) 94%,white),color-mix(in srgb,var(--team-secondary) 78%,black))!important; }
+.selected-lineup-card,.analytics-source-active,.roster-row-card:hover { border-color:color-mix(in srgb,var(--team-secondary) 72%,#456b98); }
+.player-close:hover { background:var(--team-secondary); }
+[data-team="spurs"] .roster-panel,[data-team="spurs"] .court-shell,[data-team="spurs"] .analytics-shell,[data-team="spurs"] .compare-shell,[data-team="spurs"] .depth-shell { border-color:#34383d; background:linear-gradient(160deg,rgba(20,22,24,.98),rgba(8,9,10,.98)); }
+[data-team="spurs"] .roster-row-card,[data-team="spurs"] .court-player-card { border-color:#34383d; background:linear-gradient(180deg,#232629,#0f1113); }
+[data-team="spurs"] .roster-row-card:hover { border-color:#c4ced4; background:#292d31; }
+[data-team="spurs"] .top-controls select,[data-team="spurs"] .top-controls button,[data-team="spurs"] .roster-search,[data-team="spurs"] .roster-filters select { border-color:#454a50; background:#111315; }
+
+/* ============================================================
+   Single-team court refinements
+   ============================================================ */
+
+/* Preserve the multi-team foundation while the selector is temporarily hidden. */
+
+
+
+/* ============================================================
+   Player well and temporary legend refinements
+   ============================================================ */
+
+/* Keep roster cards at their normal designed height. */
+.roster-list {
+  align-content: start;
+  grid-auto-rows: max-content;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.roster-list::-webkit-scrollbar {
+  display: none;
+}
+
+.roster-row-card {
+  flex: 0 0 auto;
+  align-self: start;
+}
+
+/* Temporarily hidden until the archetype catalog is standardized. */
+.archetype-legend-panel {
+  display: none !important;
+}
+
+
+/* Saved lineup three-button action group */
+.compare-card-actions {
+  gap: 4px;
+}
+
+.compare-card .undo-lineup-button,
+.compare-card .promote-lineup-button,
+.compare-card .clear-saved-lineup-button {
+  display: grid;
+  place-items: center;
+  width: 27px;
+  min-width: 27px;
+  height: 27px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #49698f;
+  border-radius: 6px;
+  color: #dce7f5;
+  background: rgba(24, 46, 75, .92);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.compare-card .promote-lineup-button {
+  color: #ffd45d;
+}
+
+.compare-card .clear-saved-lineup-button {
+  color: #ff9ba8;
+}
+
+.compare-card .clear-saved-lineup-button:hover:not(:disabled) {
+  border-color: var(--team-secondary, #e31837);
+  color: #ffffff;
+  background: color-mix(
+    in srgb,
+    var(--team-secondary, #e31837) 26%,
+    #071526
+  );
+  transform: translateY(-1px);
+}
+
+.compare-card .clear-saved-lineup-button:disabled {
+  opacity: .28;
+  cursor: default;
+}
+
+.fixed-lineup-name {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  color: #f4f7fb;
+  font-size: 13px;
+  line-height: 28px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* Shareable saved lineups */
+.compare-save-share-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px;
+}
+
+.compare-save-share-row > button {
+  margin: 0;
+}
+
+.compare-share-button {
+  min-width: 76px;
+  border-color: color-mix(in srgb, var(--team-secondary) 55%, #49698f);
+  background: rgba(17, 39, 66, .92);
+}
+
+.compare-share-button:disabled {
+  opacity: .32;
+  cursor: default;
+}
+
+.shared-lineup-page {
+  min-height: 100vh;
+}
+
+.shared-lineup-header h1 {
+  margin: 2px 0;
+}
+
+.shared-builder-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--team-secondary);
+  border-radius: 7px;
+  color: #fff;
+  background: color-mix(in srgb, var(--team-secondary) 24%, #081727);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.shared-lineup-layout {
+  display: grid;
+  grid-template-columns: minmax(720px, 1.45fr) minmax(320px, .55fr);
+  gap: 18px;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.shared-lineup-court-shell,
+.shared-lineup-layout > .analytics-shell {
+  min-height: 720px;
+}
+
+.shared-lineup-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border: 1px solid #263f60;
+  border-bottom: 0;
+  background: #0b1728;
+}
+
+.shared-lineup-title-row h2 {
+  margin: 3px 0 0;
+}
+
+.shared-lineup-title-row > strong {
+  color: var(--team-secondary);
+  font-size: 18px;
+}
+
+.shared-court-stage {
+  min-height: 650px;
+}
+
+.shared-empty-slot {
+  display: grid;
+  place-items: center;
+  width: 86px;
+  height: 86px;
+  border: 2px dashed rgba(255,255,255,.3);
+  border-radius: 50%;
+  color: rgba(255,255,255,.65);
+  font-weight: 900;
+}
+
+.shared-lineup-status {
+  display: grid;
+  place-content: center;
+  min-height: 100vh;
+  padding: 30px;
+  color: #fff;
+  text-align: center;
+  background: #07111f;
+}
+
+.shared-lineup-status a {
+  color: #9fc7ff;
+}
+
+@media (max-width: 1080px) {
+  .shared-lineup-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .shared-lineup-court-shell,
+  .shared-lineup-layout > .analytics-shell {
+    min-height: auto;
+  }
+}
+
+
+/* Shared lineup presentation refinements */
+.shared-lineup-page {
+  display: grid;
+  min-height: 100vh;
+  padding: 2.5vh 2.5vw;
+}
+
+.shared-lineup-presentation {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(310px, .45fr);
+  gap: 18px;
+  width: 95vw;
+  min-height: 95vh;
+  margin: 0 auto;
+}
+
+.shared-lineup-main-panel {
+  position: relative;
+  min-width: 0;
+  min-height: 95vh;
+  overflow: hidden;
+  border: 1px solid #263f60;
+  border-radius: 12px;
+  background: #081321;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .32);
+}
+
+.shared-lineup-floating-bar {
+  position: absolute;
+  z-index: 12;
+  top: 14px;
+  right: 14px;
+  left: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  pointer-events: none;
+}
+
+.shared-lineup-floating-bar h1 {
+  max-width: 45%;
+  margin: 0;
+  padding: 9px 13px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 8px;
+  color: #fff;
+  background: rgba(5, 16, 30, .82);
+  box-shadow: 0 8px 22px rgba(0,0,0,.24);
+  font-size: clamp(20px, 2.1vw, 34px);
+  line-height: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+}
+
+.shared-lineup-view-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+
+.shared-view-toggle {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+  border: 1px solid #355475;
+  border-radius: 8px;
+  background: rgba(5, 16, 30, .86);
+  backdrop-filter: blur(8px);
+}
+
+.shared-view-toggle button {
+  min-height: 34px;
+  margin: 0;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 6px;
+  color: #9fb0c4;
+  background: transparent;
+  font-weight: 800;
+}
+
+.shared-view-toggle button.active {
+  color: #fff;
+  background: color-mix(
+    in srgb,
+    var(--team-secondary) 38%,
+    #10243b
+  );
+}
+
+.shared-stat-control {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid #355475;
+  border-radius: 8px;
+  color: #c8d4e2;
+  background: rgba(5, 16, 30, .86);
+  font-size: 12px;
+  font-weight: 800;
+  backdrop-filter: blur(8px);
+}
+
+.shared-stat-control select {
+  min-height: 30px;
+}
+
+.shared-lineup-main-panel .shared-court-stage {
+  width: 100%;
+  min-height: 95vh;
+  height: 100%;
+  border: 0;
+}
+
+.shared-lineup-presentation > .analytics-shell {
+  min-height: 95vh;
+  height: 100%;
+  overflow: auto;
+}
+
+.shared-lineup-card-view {
+  display: grid;
+  align-content: center;
+  min-height: 95vh;
+  padding: clamp(88px, 10vh, 130px) clamp(22px, 3vw, 54px) 42px;
+  background:
+    radial-gradient(
+      circle at top center,
+      color-mix(in srgb, var(--team-secondary) 17%, transparent),
+      transparent 42%
+    ),
+    linear-gradient(145deg, #0b192b, #07111f 72%);
+}
+
+.shared-lineup-card-score {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 18px;
+  color: #aab9ca;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+}
+
+.shared-lineup-card-score strong {
+  color: #fff;
+  font-size: clamp(22px, 2vw, 32px);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.shared-lineup-card-players {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(135px, 1fr));
+  gap: clamp(8px, 1vw, 16px);
+}
+
+.shared-lineup-player-tile {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #355475;
+  border-radius: 11px;
+  background: linear-gradient(180deg, #132942, #0b1828);
+  box-shadow: 0 15px 30px rgba(0,0,0,.24);
+}
+
+.shared-lineup-player-image {
+  position: relative;
+  display: grid;
+  place-items: end center;
+  min-height: clamp(240px, 31vh, 390px);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.04), transparent),
+    color-mix(in srgb, var(--team-primary) 58%, #10243b);
+}
+
+.shared-lineup-player-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: saturate(.82);
+}
+
+.shared-lineup-player-image span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  min-width: 38px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  color: #fff;
+  background: rgba(5,15,27,.86);
+  font-weight: 900;
+  text-align: center;
+}
+
+.shared-lineup-player-copy {
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+}
+
+.shared-lineup-player-copy > strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: clamp(15px, 1.25vw, 22px);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shared-lineup-player-copy > small {
+  overflow: hidden;
+  color: #9eb0c4;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shared-lineup-player-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  margin-top: 7px;
+}
+
+.shared-lineup-player-stats span {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+  min-width: 0;
+  padding: 6px;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 5px;
+  color: #9fb0c2;
+  font-size: 10px;
+}
+
+.shared-lineup-player-stats strong {
+  color: #fff;
+  font-size: 13px;
+}
+
+@media (max-width: 1250px) {
+  .shared-lineup-presentation {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .shared-lineup-main-panel,
+  .shared-lineup-main-panel .shared-court-stage,
+  .shared-lineup-card-view {
+    min-height: 82vh;
+  }
+
+  .shared-lineup-presentation > .analytics-shell {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .shared-lineup-page {
+    padding: 10px;
+  }
+
+  .shared-lineup-presentation {
+    width: calc(100vw - 20px);
+  }
+
+  .shared-lineup-floating-bar {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 12px;
+    background: #091727;
+  }
+
+  .shared-lineup-floating-bar h1 {
+    max-width: 100%;
+  }
+
+  .shared-lineup-view-controls {
+    flex-wrap: wrap;
+  }
+
+  .shared-lineup-main-panel .shared-court-stage {
+    min-height: 720px;
+  }
+
+  .shared-lineup-card-players {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shared-lineup-player-tile:last-child {
+    grid-column: 1 / -1;
+    max-width: 50%;
+    justify-self: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .shared-lineup-card-players {
+    grid-template-columns: 1fr;
+  }
+
+  .shared-lineup-player-tile:last-child {
+    grid-column: auto;
+    max-width: none;
+  }
+
+  .shared-lineup-view-controls {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .shared-view-toggle {
+    width: 100%;
+  }
+}
+
+
+/* Shared lineup toolbar moved above analytics */
+.shared-lineup-floating-bar {
+  justify-content: flex-start;
+}
+
+.shared-lineup-floating-bar .shared-lineup-view-controls {
+  display: none;
+}
+
+.shared-lineup-analytics-column {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 10px;
+  min-width: 0;
+  min-height: 95vh;
+}
+
+.shared-lineup-analytics-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(118px, .75fr);
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #263f60;
+  border-radius: 10px;
+  background: #0a1828;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .22);
+}
+
+.shared-lineup-analytics-toolbar .shared-builder-link {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  min-height: 38px;
+}
+
+.shared-lineup-analytics-column > .analytics-shell {
+  min-height: 0;
+  height: 100%;
+  overflow: auto;
+}
+
+/* Grow lineup cards safely on large screens */
+.shared-lineup-card-view {
+  padding-inline: clamp(18px, 2.4vw, 46px);
+}
+
+.shared-lineup-card-players {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(10px, 1.15vw, 24px);
+  width: 100%;
+  max-width: none;
+}
+
+.shared-lineup-player-tile {
+  width: 100%;
+  min-width: 0;
+}
+
+.shared-lineup-player-image {
+  min-height: clamp(260px, 38vh, 560px);
+  aspect-ratio: 0.72;
+}
+
+.shared-lineup-player-copy {
+  padding: clamp(10px, .9vw, 18px);
+}
+
+.shared-lineup-player-copy > strong {
+  font-size: clamp(15px, 1.1vw, 24px);
+}
+
+.shared-lineup-player-stats span {
+  padding: clamp(5px, .45vw, 9px);
+  font-size: clamp(9px, .55vw, 12px);
+}
+
+.shared-lineup-player-stats strong {
+  font-size: clamp(12px, .8vw, 17px);
+}
+
+/* Court cards scale with viewport but remain collision-safe */
+.shared-court-stage .mockup-court-slot {
+  width: clamp(150px, 10.5vw, 245px);
+  max-width: calc(20% - 18px);
+  transform: translate(-50%, -50%);
+}
+
+.shared-court-stage .player-card {
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 1600px) {
+  .shared-lineup-presentation {
+    grid-template-columns: minmax(0, 1.7fr) minmax(340px, .42fr);
+  }
+
+  .shared-court-stage .mockup-court-slot {
+    width: clamp(185px, 11.5vw, 270px);
+    max-width: calc(20% - 22px);
+  }
+}
+
+@media (max-width: 1250px) {
+  .shared-lineup-analytics-column {
+    min-height: auto;
+  }
+
+  .shared-lineup-analytics-toolbar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .shared-lineup-analytics-toolbar .shared-builder-link {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .shared-lineup-analytics-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .shared-lineup-analytics-toolbar .shared-builder-link {
+    grid-column: auto;
+  }
+
+  .shared-court-stage .mockup-court-slot {
+    width: clamp(130px, 28vw, 190px);
+    max-width: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .shared-court-stage .mockup-court-slot {
+    width: clamp(118px, 40vw, 160px);
+  }
+}
+
+
+/* Multi-lineup sharing */
+.share-lineups-button {
+  min-height: 34px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid color-mix(
+    in srgb,
+    var(--team-secondary, #e31837) 55%,
+    #385575
+  );
+  border-radius: 7px;
+  color: #fff;
+  background: color-mix(
+    in srgb,
+    var(--team-secondary, #e31837) 28%,
+    #10243b
+  );
+  font-weight: 900;
+}
+
+.share-lineups-button:hover {
+  transform: translateY(-1px);
+  background: color-mix(
+    in srgb,
+    var(--team-secondary, #e31837) 42%,
+    #10243b
+  );
+}
+
+.shared-player-position {
+  right: auto;
+  left: 10px;
+}
+
+.shared-lineup-player-image .shared-player-number {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  min-width: 42px;
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 5px;
+  color: var(--team-secondary, #e31837);
+  background: rgba(255,255,255,.94);
+  font-size: clamp(13px, .9vw, 18px);
+  font-weight: 950;
+  line-height: 1;
+  box-shadow: 0 5px 14px rgba(0,0,0,.22);
+}
+
+.shared-lineups-collection-page {
+  min-height: 100vh;
+  padding: 2.5vh 2.5vw 5vh;
+  background:
+    radial-gradient(
+      circle at top,
+      color-mix(in srgb, var(--team-secondary) 13%, transparent),
+      transparent 38%
+    ),
+    #06101c;
+}
+
+.shared-collection-toolbar {
+  position: sticky;
+  z-index: 20;
+  top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  width: 95vw;
+  margin: 0 auto 18px;
+  padding: 12px 15px;
+  border: 1px solid #294566;
+  border-radius: 10px;
+  background: rgba(8, 22, 38, .92);
+  box-shadow: 0 12px 32px rgba(0,0,0,.26);
+  backdrop-filter: blur(12px);
+}
+
+.shared-collection-toolbar h1 {
+  margin: 2px 0 0;
+  color: #fff;
+  font-size: clamp(22px, 2vw, 34px);
+}
+
+.shared-collection-actions {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.shared-lineups-stack {
+  display: grid;
+  gap: clamp(18px, 2.3vh, 34px);
+  width: 95vw;
+  margin: 0 auto;
+}
+
+.shared-collection-lineup {
+  padding: clamp(18px, 2vw, 34px);
+  overflow: hidden;
+  border: 1px solid #294566;
+  border-radius: 13px;
+  background:
+    radial-gradient(
+      circle at top center,
+      color-mix(in srgb, var(--team-secondary) 15%, transparent),
+      transparent 42%
+    ),
+    linear-gradient(145deg, #0b192b, #07111f 72%);
+  box-shadow: 0 18px 46px rgba(0,0,0,.25);
+}
+
+.shared-collection-lineup-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.shared-collection-lineup-heading span {
+  color: #8fa2b8;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+}
+
+.shared-collection-lineup-heading h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(20px, 1.8vw, 31px);
+}
+
+.shared-collection-lineup .shared-lineup-card-players {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (min-width: 1800px) {
+  .shared-collection-lineup {
+    padding-inline: clamp(32px, 3.2vw, 66px);
+  }
+
+  .shared-collection-lineup .shared-lineup-player-image {
+    min-height: clamp(340px, 41vh, 620px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .shared-collection-toolbar {
+    position: relative;
+    top: auto;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .shared-collection-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .shared-collection-lineup .shared-lineup-card-players {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .shared-collection-lineup .shared-lineup-player-tile:last-child {
+    grid-column: 1 / -1;
+    width: calc(50% - 6px);
+    justify-self: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .shared-lineups-collection-page {
+    padding: 10px;
+  }
+
+  .shared-collection-toolbar,
+  .shared-lineups-stack {
+    width: 100%;
+  }
+
+  .shared-collection-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .shared-collection-lineup .shared-lineup-card-players {
+    grid-template-columns: 1fr;
+  }
+
+  .shared-collection-lineup .shared-lineup-player-tile:last-child {
+    grid-column: auto;
+    width: 100%;
+  }
+}
+
+
+/* Shared lineup player metadata beneath name */
+.shared-lineup-player-image .shared-player-position,
+.shared-lineup-player-image .shared-player-number {
+  display: none;
+}
+
+.shared-player-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: -1px;
+  color: #c6d2df;
+  font-size: clamp(11px, .7vw, 14px);
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.shared-player-meta span + span::before {
+  content: "•";
+  margin-right: 8px;
+  color: var(--team-secondary, #e31837);
+}
+
+
+/* Shared lineup cards: approximately 50px shorter */
+.shared-lineup-player-image {
+  min-height: clamp(210px, calc(38vh - 50px), 510px);
+}
+
+@media (min-width: 1800px) {
+  .shared-collection-lineup .shared-lineup-player-image {
+    min-height: clamp(290px, calc(41vh - 50px), 570px);
+  }
+}
+
+/* Public/private saved-lineup toggle */
+.lineup-visibility-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 34px;
+  margin: 0;
+  padding: 0 11px;
+  border: 1px solid #466887;
+  border-radius: 7px;
+  color: #dce8f5;
+  background: #13283f;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.lineup-visibility-button span {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.lineup-visibility-button.is-public {
+  border-color: color-mix(
+    in srgb,
+    var(--team-secondary, #e31837) 52%,
+    #466887
+  );
+  color: #fff;
+  background: color-mix(
+    in srgb,
+    var(--team-secondary, #e31837) 22%,
+    #13283f
+  );
+}
+
+.lineup-visibility-button.is-private {
+  opacity: .68;
+}
+
+.lineup-visibility-button.is-private span {
+  filter: grayscale(1);
+  opacity: .65;
+}
+
+.lineup-visibility-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  opacity: 1;
+}
+
+.lineup-visibility-button:disabled {
+  opacity: .28;
+  cursor: default;
+}

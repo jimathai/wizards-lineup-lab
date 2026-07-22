@@ -3,6 +3,8 @@ import ArchetypeLegend from './components/ArchetypeLegend'
 import Court from './components/Court'
 import FeaturedPlayerPanel from './components/FeaturedPlayerPanel'
 import LineupCompare from './components/LineupCompare'
+import SharedLineupPage from './components/SharedLineupPage'
+import SharedLineupsPage from './components/SharedLineupsPage'
 import PlayerPickerModal from './components/PlayerPickerModal'
 import PlayerPool from './components/PlayerPool'
 import useLineupLab from './hooks/useLineupLab'
@@ -10,6 +12,31 @@ import useLineupLab from './hooks/useLineupLab'
 import './styles/district-basketball-lab.css'
 
 export default function App() {
+  const sharedLineupsMatch = window.location.pathname.match(
+    /^\/lineups\/([0-9a-f-]+)\/([^/]+)\/?$/i,
+  )
+
+  if (sharedLineupsMatch) {
+    return (
+      <SharedLineupsPage
+        ownerId={sharedLineupsMatch[1]}
+        teamId={decodeURIComponent(sharedLineupsMatch[2])}
+      />
+    )
+  }
+
+  const sharedLineupMatch = window.location.pathname.match(
+    /^\/lineup\/([0-9a-f-]+)\/?$/i,
+  )
+
+  if (sharedLineupMatch) {
+    return <SharedLineupPage lineupId={sharedLineupMatch[1]} />
+  }
+
+  return <LineupLabApp />
+}
+
+function LineupLabApp() {
   const {
     activeTeam,
     analyticsTarget,
@@ -17,8 +44,9 @@ export default function App() {
     availablePlayers,
     availableTeams,
     choosePlayer,
+    clearSavedLineup,
+    clearStarters,
     closePlayerPicker,
-    copyShareLink,
     filteredPlayerPool,
     playerDataError,
     playerDataLoading,
@@ -32,7 +60,8 @@ export default function App() {
     removeStarter,
     renameLineup,
     saveCurrentLineup,
-    saveProject,
+    sharePublicLineups,
+    toggleSavedLineupVisibility,
     search,
     selectedPlayer,
     setActiveTeamId,
@@ -47,22 +76,24 @@ export default function App() {
     starterPlayersBySlot,
     startingPlayers,
     statMode,
+    undoSavedLineup,
     useSavedLineupAsStarters,
   } = useLineupLab()
 
-  const teamColors = activeTeam.colors || {}
-  const teamStyle = {
-    '--team-primary': teamColors.primary || '#002B5C',
-    '--team-secondary': teamColors.secondary || '#E31837',
-    '--team-neutral': teamColors.neutral || '#FFFFFF',
-    '--team-blossom': teamColors.blossom || '#E98BA7',
-    '--team-blossom-deep': teamColors.blossomDeep || '#8C3558',
-    '--team-gold': teamColors.alternate || '#D6B36A',
-    '--team-black': teamColors.alternateDark || '#0A0A0A',
+  const teamTheme = {
+    '--team-primary': activeTeam.primaryColor || '#002B5C',
+    '--team-secondary': activeTeam.secondaryColor || '#E31837',
+    '--team-accent': activeTeam.accentColor || '#FFFFFF',
+    '--team-surface': activeTeam.surfaceColor || '#0b1728',
+    '--team-glow': activeTeam.glowColor || activeTeam.secondaryColor || '#E31837',
   }
 
   return (
-    <div className="app-frame" style={teamStyle}>
+    <div
+      className="app-frame"
+      data-team={activeTeam.id}
+      style={teamTheme}
+    >
       <header className="top-bar district-top-bar">
         <div className="brand-block district-brand-block">
           <div className="brand-mark district-brand-mark">
@@ -76,28 +107,13 @@ export default function App() {
             )}
           </div>
 
-          <div className="district-brand-copy">
-            <span className="district-brand-kicker">District Basketball Lab</span>
-            <h1>{activeTeam.city} {activeTeam.name}</h1>
-            <span className="district-brand-subtitle">Lineup & roster workbench</span>
+          <div>
+            <h1>District Basketball Lab</h1>
+            <span>{activeTeam.city} {activeTeam.name} Edition</span>
           </div>
         </div>
 
         <div className="top-controls">
-          <label>
-            Team
-            <select
-              value={activeTeam.id}
-              onChange={(event) => setActiveTeamId(event.target.value)}
-            >
-              {availableTeams.map((team) => (
-                <option key={team.id} value={team.id}>
-                  {team.abbreviation} · {team.city} {team.name}
-                </option>
-              ))}
-            </select>
-          </label>
-
           <label>
             Stats
             <select
@@ -108,19 +124,6 @@ export default function App() {
               <option value="career">Career</option>
             </select>
           </label>
-
-
-          <button type="button" onClick={saveProject}>
-            Save Lineup
-          </button>
-
-          <button
-            type="button"
-            className="share-button"
-            onClick={copyShareLink}
-          >
-            Copy Share Link
-          </button>
         </div>
       </header>
 
@@ -160,6 +163,7 @@ export default function App() {
                 onRemove={removeStarter}
                 onOpenPicker={openPlayerPicker}
                 onSelectPlayer={setSelectedPlayerId}
+                onClear={clearStarters}
               />
             </div>
 
@@ -177,6 +181,10 @@ export default function App() {
                 onSave={saveCurrentLineup}
                 onRename={renameLineup}
                 onSetStarters={useSavedLineupAsStarters}
+                onUndo={undoSavedLineup}
+                onClear={clearSavedLineup}
+                onToggleVisibility={toggleSavedLineupVisibility}
+                onShareLineups={sharePublicLineups}
                 selectedIndex={
                   analyticsTarget.type === 'saved'
                     ? analyticsTarget.index

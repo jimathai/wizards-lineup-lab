@@ -50,8 +50,12 @@ export const localPlayerProvider = {
       )
     })
 
-    return clonePlayers(
-      matchingPlayers.length > 0 ? matchingPlayers : playersData,
-    )
+    if (matchingPlayers.length > 0) {
+      return clonePlayers(matchingPlayers)
+    }
+
+    // The bundled fallback contains only Washington players.
+    // Never show them under another team's selector.
+    return team.id === 'wizards' ? clonePlayers(playersData) : []
   },
 }

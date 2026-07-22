@@ -1,7 +1,9 @@
 import { localPlayerProvider } from './playerData/localPlayerProvider'
+import { supabasePlayerProvider } from './playerData/supabasePlayerProvider'
 
 const providers = {
   local: localPlayerProvider,
+  supabase: supabasePlayerProvider,
 }
 
 const configuredProvider =
@@ -21,12 +23,42 @@ const getProvider = () => {
   return provider
 }
 
-export const getPlayers = () => getProvider().getPlayers()
+const withLocalFallback = async (methodName, ...args) => {
+  const provider = getProvider()
+
+  try {
+    const result = await provider[methodName](...args)
+
+    if (
+      configuredProvider !== 'local' &&
+      Array.isArray(result) &&
+      result.length === 0
+    ) {
+      console.warn(
+        `${configuredProvider} returned no player data; using local fallback.`,
+      )
+      return localPlayerProvider[methodName](...args)
+    }
+
+    return result
+  } catch (error) {
+    if (configuredProvider === 'local') throw error
+
+    console.warn(
+      `Unable to load player data from ${configuredProvider}; using local fallback.`,
+      error,
+    )
+
+    return localPlayerProvider[methodName](...args)
+  }
+}
+
+export const getPlayers = () => withLocalFallback('getPlayers')
 
 export const getPlayerById = (playerId) =>
-  getProvider().getPlayerById(playerId)
+  withLocalFallback('getPlayerById', playerId)
 
 export const getTeamRoster = (team) =>
-  getProvider().getTeamRoster(team)
+  withLocalFallback('getTeamRoster', team)
 
 export const getPlayerDataProviderName = () => configuredProvider

@@ -11,6 +11,10 @@ export default function LineupCompare({
   onSave,
   onRename,
   onSetStarters,
+  onUndo,
+  onClear,
+  onToggleVisibility,
+  onShareLineups,
   selectedIndex,
   onSelect,
 }) {
@@ -20,6 +24,14 @@ export default function LineupCompare({
         <div>
           <span className="section-kicker">Saved Lineups</span>
         </div>
+
+        <button
+          type="button"
+          className="share-lineups-button"
+          onClick={onShareLineups}
+        >
+          Share Lineups
+        </button>
       </div>
 
       <div className="compare-card-grid compare-card-grid-wide">
@@ -40,27 +52,61 @@ export default function LineupCompare({
               onClick={() => onSelect(index)}
             >
               <div className="compare-card-top">
-                <input
-                  value={lineup.name}
-                  onClick={(event) => event.stopPropagation()}
-                  onChange={(event) =>
-                    onRename(index, event.target.value)
-                  }
-                />
+                {index < 3 ? (
+                  <strong className="fixed-lineup-name">
+                    {lineup.name}
+                  </strong>
+                ) : (
+                  <input
+                    value={lineup.name}
+                    onClick={(event) => event.stopPropagation()}
+                    onChange={(event) =>
+                      onRename(index, event.target.value)
+                    }
+                  />
+                )}
 
                 <div className="compare-card-actions">
                   <button
                     type="button"
+                    className="undo-lineup-button"
+                    disabled={!lineup.canUndo}
+                    title={`Restore the previous version of ${lineup.name}`}
+                    aria-label={`Restore the previous version of ${lineup.name}`}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      onUndo(index)
+                    }}
+                  >
+                    ↶
+                  </button>
+
+                  <button
+                    type="button"
                     className="promote-lineup-button"
                     disabled={!lineup.players.length}
-                    title={`Set ${lineup.name} as starters`}
-                    aria-label={`Set ${lineup.name} as starters`}
+                    title="Move to Lineup Editor"
+                    aria-label={`Move ${lineup.name} to Lineup Editor`}
                     onClick={(event) => {
                       event.stopPropagation()
                       onSetStarters(index)
                     }}
                   >
-                    ☆
+                    ↑
+                  </button>
+
+                  <button
+                    type="button"
+                    className="clear-saved-lineup-button"
+                    disabled={!lineup.players.length}
+                    title={`Clear ${lineup.name}`}
+                    aria-label={`Clear ${lineup.name}`}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      onClear(index)
+                    }}
+                  >
+                    ×
                   </button>
 
                   <strong className="compare-card-score">
@@ -71,15 +117,43 @@ export default function LineupCompare({
                 </div>
               </div>
 
-              <button
-                onClick={(event) => {
-                  event.stopPropagation()
-                  onSave(index)
-                  onSelect(index)
-                }}
-              >
-                Save Current Five
-              </button>
+              <div className="compare-save-share-row">
+                <button
+                  className="compare-save-button"
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    onSave(index)
+                    onSelect(index)
+                  }}
+                >
+                  {lineup.players.length ? 'Replace' : 'Save Current Five'}
+                </button>
+
+                <button
+                  type="button"
+                  className={`lineup-visibility-button ${
+                    lineup.isPublic ? 'is-public' : 'is-private'
+                  }`}
+                  disabled={!lineup.players.length}
+                  title={
+                    lineup.isPublic
+                      ? `Make ${lineup.name} private`
+                      : `Make ${lineup.name} public`
+                  }
+                  aria-label={
+                    lineup.isPublic
+                      ? `Make ${lineup.name} private`
+                      : `Make ${lineup.name} public`
+                  }
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    onToggleVisibility(index)
+                  }}
+                >
+                  <span aria-hidden="true">👁</span>
+                  {lineup.isPublic ? 'Public' : 'Private'}
+                </button>
+              </div>
 
               <div className="compare-thumbnails">
                 {lineup.players.length ? (
@@ -94,7 +168,7 @@ export default function LineupCompare({
                       />
                       <div className="compare-player-details">
                         <strong>{getLastName(player.name)}</strong>
-                        <span>{player.pos || player.position || '—'}</span>
+                        <span>{player.position || '—'}</span>
                       </div>
                     </div>
                   ))

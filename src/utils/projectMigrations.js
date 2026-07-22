@@ -56,11 +56,6 @@ const normalizeSavedLineups = (savedLineups, lineup) => {
 const normalizeTeam = (team, fallbackTeam) => ({
   ...clone(fallbackTeam),
   ...(team || {}),
-  imgURL: team?.imgURL || fallbackTeam.imgURL || '',
-  colors: {
-    ...(fallbackTeam.colors || {}),
-    ...(team?.colors || {}),
-  },
   players:
     Array.isArray(team?.players) && team.players.length > 0
       ? team.players
@@ -78,12 +73,12 @@ const normalizeTeam = (team, fallbackTeam) => ({
 
 const createFreshProject = () => ({
   ...clone(initialProjectState),
-  teams: {
-    wizards: normalizeTeam(
-      initialProjectState.teams.wizards,
-      initialProjectState.teams.wizards,
-    ),
-  },
+  teams: Object.fromEntries(
+    Object.entries(initialProjectState.teams).map(([teamId, team]) => [
+      teamId,
+      normalizeTeam(team, team),
+    ]),
+  ),
 })
 
 const migrateLegacySingleTeamProject = (savedProject) => {
@@ -140,9 +135,9 @@ const migrateNormalizedProject = (savedProject) => {
     ]),
   )
 
-  if (!normalizedTeams.wizards) {
-    normalizedTeams.wizards = freshProject.teams.wizards
-  }
+  Object.entries(freshProject.teams).forEach(([teamId, team]) => {
+    if (!normalizedTeams[teamId]) normalizedTeams[teamId] = team
+  })
 
   return {
     ...freshProject,

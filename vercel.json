@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/lineup/:id", "destination": "/index.html" }
+  ]
+}

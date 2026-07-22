@@ -40,6 +40,7 @@ export default function Court({
   onRemove,
   onOpenPicker,
   onSelectPlayer,
+  onClear,
 }) {
   const safeFormation = FORMATIONS[formation]
     ? formation
@@ -50,7 +51,16 @@ export default function Court({
   return (
     <section className="mockup-court-panel">
       <div className="mockup-court-header">
-        <h2>Starters</h2>
+        <div className="lineup-editor-heading">
+          <h2>Lineup Editor</h2>
+          <button
+            type="button"
+            className="clear-lineup-button"
+            onClick={onClear}
+          >
+            Clear
+          </button>
+        </div>
 
         <div className="mockup-formation-tabs">
           {Object.keys(FORMATIONS).map((value) => (

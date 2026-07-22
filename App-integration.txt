@@ -1,0 +1,56 @@
+// Add this state near your other useState calls:
+const [analyticsTarget, setAnalyticsTarget] = useState({
+  type: 'starters',
+  index: null,
+})
+
+// Add these derived values after hydratedLineups:
+const analyzedLineup =
+  analyticsTarget.type === 'saved'
+    ? hydratedLineups[analyticsTarget.index] || {
+        name: 'Lineup',
+        players: [],
+      }
+    : {
+        name: 'Starters',
+        players: startingPlayers,
+      }
+
+// Update AnalyticsPanel:
+<AnalyticsPanel
+  players={analyzedLineup.players}
+  statMode={statMode}
+  lineupName={analyzedLineup.name}
+/>
+
+// Update LineupCompare:
+<LineupCompare
+  lineups={hydratedLineups}
+  statMode={statMode}
+  onSave={saveCurrentLineup}
+  onRename={renameLineup}
+  selectedIndex={
+    analyticsTarget.type === 'saved'
+      ? analyticsTarget.index
+      : null
+  }
+  onSelect={(index) =>
+    setAnalyticsTarget({
+      type: 'saved',
+      index,
+    })
+  }
+/>
+
+// To make the court select Starters again, wrap the Court component:
+<div
+  className="workbench-court"
+  onClick={() =>
+    setAnalyticsTarget({
+      type: 'starters',
+      index: null,
+    })
+  }
+>
+  <Court ... />
+</div>
