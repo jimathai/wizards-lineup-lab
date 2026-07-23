@@ -903,16 +903,24 @@ export default function useLineupLab() {
         `${window.location.origin}/lineups/${user.id}/` +
         encodeURIComponent(activeTeam.id)
 
+      let copied = false
+
       try {
         await navigator.clipboard.writeText(shareUrl)
-        window.alert(
-          `${publicCompleteCount} public lineup${
-            publicCompleteCount === 1 ? '' : 's'
-          } copied to one share page.`,
-        )
+        copied = true
       } catch {
         window.prompt('Copy this lineup collection link:', shareUrl)
       }
+
+      if (copied) {
+        window.alert(
+          `${publicCompleteCount} public lineup${
+            publicCompleteCount === 1 ? '' : 's'
+          } copied. Opening the shared lineup page now.`,
+        )
+      }
+
+      window.location.assign(shareUrl)
     } catch (error) {
       console.error('Unable to share lineup collection:', error)
       setSavedLineupSyncError(

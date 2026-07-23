@@ -67,6 +67,12 @@ export default function LineupCompare({
                 )}
 
                 <div className="compare-card-actions">
+                  <strong className="compare-card-score">
+                    {lineup.players.length
+                      ? analytics.scores.overall
+                      : '—'}
+                  </strong>
+
                   <button
                     type="button"
                     className="undo-lineup-button"
@@ -109,11 +115,6 @@ export default function LineupCompare({
                     ×
                   </button>
 
-                  <strong className="compare-card-score">
-                    {lineup.players.length
-                      ? analytics.scores.overall
-                      : '—'}
-                  </strong>
                 </div>
               </div>
 

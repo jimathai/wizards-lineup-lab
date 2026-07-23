@@ -2,6 +2,7 @@ import {
   isSupabaseConfigured,
   supabase,
 } from '../../lib/supabaseClient'
+import { resolvePlayerImageUrl } from '../../config/playerImages'
 
 const numberOrNull = (value) =>
   value == null || value === '' ? null : Number(value)
@@ -58,7 +59,11 @@ const mapRosterRow = (row, careerRow = null) => {
     standingReach: inchesToDisplay(row.standing_reach_inches),
     vertical:
       row.vertical_inches == null ? '' : `${row.vertical_inches}"`,
-    image: row.image_url || '',
+    image: resolvePlayerImageUrl({
+      imageUrlOverride: row.image_url_override,
+      nbaPlayerId: row.nba_player_id,
+      legacyImageUrl: row.image_url,
+    }),
     archetype: row.archetype || null,
     statSource: row.stat_source_name || 'Supabase',
     current,

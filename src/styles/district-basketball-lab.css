@@ -3646,3 +3646,335 @@ button {
   opacity: .28;
   cursor: default;
 }
+
+
+/* Cosmetic follow-up: more compact shared lineup cards */
+.shared-lineup-player-image {
+  min-height: clamp(175px, calc(38vh - 85px), 455px);
+}
+
+@media (min-width: 1800px) {
+  .shared-collection-lineup .shared-lineup-player-image {
+    min-height: clamp(245px, calc(41vh - 95px), 510px);
+  }
+}
+
+/* Keep Lineup Editor and Clear beside each other */
+.lineup-editor-heading {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  gap: 12px;
+}
+
+.lineup-editor-heading h2,
+.lineup-editor-heading .clear-lineup-button {
+  margin: 0;
+}
+
+.lineup-editor-heading .clear-lineup-button:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+/* Lineup Editor Court / Lineup Card view */
+.lineup-editor-header {
+  gap: 16px;
+}
+
+.lineup-editor-header-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.lineup-editor-view-toggle {
+  flex: 0 0 auto;
+}
+
+.lineup-editor-card-view {
+  min-height: 0;
+  height: calc(100% - 58px);
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.lineup-editor-card-view .shared-lineup-card-players {
+  min-height: 100%;
+}
+
+.lineup-editor-card-view .shared-lineup-player-tile {
+  min-width: 0;
+}
+
+.lineup-editor-card-view .shared-lineup-player-image {
+  min-height: clamp(150px, 23vh, 265px);
+}
+
+.lineup-editor-player-tile {
+  position: relative;
+  cursor: pointer;
+}
+
+.lineup-editor-card-remove {
+  position: absolute;
+  z-index: 4;
+  top: 7px;
+  right: 7px;
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(7, 17, 31, .82);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.lineup-editor-card-remove:hover {
+  border-color: var(--team-secondary, #e31837);
+  background: var(--team-secondary, #e31837);
+}
+
+.lineup-editor-empty-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 100%;
+  border: 1px dashed rgba(255, 255, 255, .28);
+  color: #dce8f5;
+  background: rgba(8, 23, 41, .72);
+  cursor: pointer;
+}
+
+.lineup-editor-empty-card:hover {
+  border-color: var(--team-secondary, #e31837);
+  background: rgba(18, 45, 72, .9);
+}
+
+.lineup-editor-empty-card strong {
+  font-size: 16px;
+}
+
+.lineup-editor-empty-card small {
+  color: #9fb1c5;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+.lineup-editor-empty-plus {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .35);
+  border-radius: 50%;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .lineup-editor-header {
+    align-items: flex-start;
+  }
+
+  .lineup-editor-header-controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .lineup-editor-card-view {
+    height: auto;
+  }
+}
+
+
+/* ============================================================
+   Compact fixed-formation Lineup Editor
+   ============================================================ */
+
+/* Formation is temporarily fixed to 2-1-2. */
+.lineup-editor-header-controls .mockup-formation-tabs {
+  display: none !important;
+}
+
+/* Give the editor/saved-lineup side more room and narrow the
+   Player Focus / Analytics column. */
+.lineup-workbench {
+  grid-template-columns:
+    minmax(0, 2fr)
+    minmax(255px, .54fr);
+}
+
+/* Use nearly the full editor panel for the five lineup cards. */
+.lineup-editor-card-view {
+  align-content: stretch;
+  padding: 8px 10px 10px;
+}
+
+.lineup-editor-card-view .shared-lineup-card-players {
+  width: 100%;
+  min-height: 100%;
+  gap: 6px;
+}
+
+.lineup-editor-card-view .shared-lineup-player-tile {
+  border-radius: 8px;
+}
+
+.lineup-editor-card-view .shared-lineup-player-image {
+  min-height: clamp(145px, 22vh, 250px);
+}
+
+.lineup-editor-card-view .shared-lineup-player-copy {
+  padding: 8px;
+}
+
+@media (max-width: 1180px) {
+  .lineup-workbench {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Tall Lineup Card presentation */
+.lineup-editor-card-view {
+  height: auto;
+  min-height: clamp(560px, 73vh, 760px);
+  overflow: hidden;
+}
+
+.lineup-editor-card-view .shared-lineup-card-players {
+  align-items: stretch;
+  min-height: clamp(540px, 70vh, 740px);
+}
+
+.lineup-editor-card-view .shared-lineup-player-tile {
+  display: flex;
+  min-height: clamp(540px, 70vh, 740px);
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lineup-editor-card-view .shared-lineup-player-image {
+  position: relative;
+  min-height: clamp(365px, 50vh, 555px);
+  flex: 1 1 auto;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 82%, rgba(255,255,255,.09), transparent 42%),
+    linear-gradient(180deg, rgba(10,25,43,.24), rgba(5,15,28,.82));
+}
+
+.lineup-editor-card-view .shared-lineup-player-image img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: scale(1.08);
+  transform-origin: center bottom;
+}
+
+.lineup-editor-card-view .shared-lineup-player-copy {
+  flex: 0 0 auto;
+  padding: 9px 9px 11px;
+}
+
+.lineup-editor-card-view .shared-lineup-player-stats {
+  margin-top: 8px;
+}
+
+.lineup-editor-card-view .lineup-editor-bio-stats {
+  margin-top: 5px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255,255,255,.10);
+}
+
+.lineup-editor-card-view .lineup-editor-bio-stats span {
+  min-width: 0;
+}
+
+.lineup-editor-card-view .lineup-editor-bio-stats strong {
+  white-space: nowrap;
+}
+
+@media (max-width: 1180px) {
+  .lineup-editor-card-view,
+  .lineup-editor-card-view .shared-lineup-card-players,
+  .lineup-editor-card-view .shared-lineup-player-tile {
+    min-height: 500px;
+  }
+
+  .lineup-editor-card-view .shared-lineup-player-image {
+    min-height: 330px;
+  }
+}
+
+
+/* Lineup-card refinements */
+.lineup-editor-card-view .shared-lineup-player-image img {
+  object-fit: cover;
+  object-position: center top;
+  transform: none;
+  filter: none;
+}
+
+/* Keep Saved Lineups sharing in the upper-right corner. */
+.compare-shell-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.compare-shell-head .share-lineups-button {
+  margin: 0 0 0 auto;
+}
+
+/* The rating sits immediately left of the undo/back arrow. */
+.compare-card-actions .compare-card-score {
+  order: 0;
+  margin: 0 2px 0 0;
+}
+
+.compare-card-actions .undo-lineup-button {
+  order: 1;
+}
+
+.compare-card-actions .promote-lineup-button {
+  order: 2;
+}
+
+.compare-card-actions .clear-saved-lineup-button {
+  order: 3;
+}
+
+/* Match the Lineup Card view height to the Court view. */
+.lineup-editor-card-view {
+  flex: 1 1 auto;
+  width: 100%;
+  min-height: 760px;
+  height: auto;
+}
+
+.lineup-editor-card-view .shared-lineup-card-players,
+.lineup-editor-card-view .shared-lineup-player-tile {
+  min-height: 100%;
+}
+
+@media (max-width: 1180px) {
+  .lineup-editor-card-view {
+    min-height: 820px;
+  }
+}

@@ -50,7 +50,6 @@ function LineupLabApp() {
     filteredPlayerPool,
     playerDataError,
     playerDataLoading,
-    formation,
     hydratedLineups,
     openPlayerPicker,
     pickerAnchor,
@@ -66,7 +65,6 @@ function LineupLabApp() {
     selectedPlayer,
     setActiveTeamId,
     setAnalyticsTarget,
-    setFormation,
     setPosition,
     setSearch,
     setSelectedPlayerId,
@@ -156,9 +154,7 @@ function LineupLabApp() {
             >
               <Court
                 starters={starterPlayersBySlot}
-                formation={formation}
                 statMode={statMode}
-                onFormationChange={setFormation}
                 onDropPlayer={placeStarter}
                 onRemove={removeStarter}
                 onOpenPicker={openPlayerPicker}
