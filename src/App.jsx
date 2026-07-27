@@ -1,3 +1,4 @@
+import AdminPage from './components/AdminPage'
 import AnalyticsPanel from './components/AnalyticsPanel'
 import ArchetypeLegend from './components/ArchetypeLegend'
 import Court from './components/Court'
@@ -12,6 +13,10 @@ import useLineupLab from './hooks/useLineupLab'
 import './styles/district-basketball-lab.css'
 
 export default function App() {
+  if (/^\/admin\/?$/i.test(window.location.pathname)) {
+    return <AdminPage />
+  }
+
   const sharedLineupsMatch = window.location.pathname.match(
     /^\/lineups\/([0-9a-f-]+)\/([^/]+)\/?$/i,
   )
@@ -112,6 +117,7 @@ function LineupLabApp() {
         </div>
 
         <div className="top-controls">
+          <a className="admin-nav-link" href="/admin">Admin</a>
           <label>
             Stats
             <select

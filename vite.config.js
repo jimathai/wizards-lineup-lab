@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { fetchNbaPlayerStats } from './api/_nbaStats.js'
 
 const ALLOWED_IMAGE_HOSTS = new Set([
   'cdn.nba.com',
@@ -57,6 +58,39 @@ const imageProxyPlugin = () => ({
   },
 })
 
+
+const nbaStatsPlugin = () => ({
+  name: 'district-nba-stats-api',
+  configureServer(server) {
+    server.middlewares.use('/api/nba-stats', async (request, response) => {
+      try {
+        const requestUrl = new URL(request.url, 'http://localhost')
+        const season = requestUrl.searchParams.get('season') || '2025-26'
+        const playerIds = (requestUrl.searchParams.get('playerIds') || '')
+          .split(',')
+          .map((value) => value.trim())
+          .filter(Boolean)
+          .slice(0, 30)
+        const players = await fetchNbaPlayerStats(season, playerIds)
+
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'application/json')
+        response.setHeader('Cache-Control', 'no-store')
+        response.end(JSON.stringify({ season, players }))
+      } catch (error) {
+        console.error('Development NBA stats API failed:', error)
+        response.statusCode = 502
+        response.setHeader('Content-Type', 'application/json')
+        response.end(JSON.stringify({
+          error: error?.name === 'AbortError'
+            ? 'NBA.com did not respond before the request timed out.'
+            : error?.message || 'Unable to retrieve NBA.com statistics.',
+        }))
+      }
+    })
+  },
+})
+
 export default defineConfig({
-  plugins: [react(), imageProxyPlugin()],
+  plugins: [react(), imageProxyPlugin(), nbaStatsPlugin()],
 })
