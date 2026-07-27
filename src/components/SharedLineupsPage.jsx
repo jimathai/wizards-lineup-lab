@@ -1,12 +1,40 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { getPublicSharedLineups } from '../services/sharedLineupService'
+import { downloadLineupImage } from '../utils/shareLineupImage'
 
 function SharedLineupCard({ lineup, statMode }) {
+  const captureRef = useRef(null)
+  const [creatingImage, setCreatingImage] = useState(false)
+
+  const handleDownloadImage = async () => {
+    try {
+      setCreatingImage(true)
+      await downloadLineupImage({
+        node: captureRef.current,
+        lineupName: lineup.name,
+      })
+    } catch (imageError) {
+      window.alert(
+        imageError?.message || 'Unable to create the lineup image.',
+      )
+    } finally {
+      setCreatingImage(false)
+    }
+  }
+
   return (
-    <section className="shared-collection-lineup">
+    <section className="shared-collection-lineup" ref={captureRef}>
       <div className="shared-collection-lineup-heading">
         <span>Lineup {lineup.slotIndex + 1}</span>
         <h2>{lineup.name}</h2>
+        <button
+          type="button"
+          className="shared-builder-link lineup-image-export-control"
+          onClick={handleDownloadImage}
+          disabled={creatingImage}
+        >
+          {creatingImage ? 'Creating Image…' : 'Download Image'}
+        </button>
       </div>
 
       <div className="shared-lineup-card-players">

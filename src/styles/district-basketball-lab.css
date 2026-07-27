@@ -3978,3 +3978,980 @@ button {
     min-height: 820px;
   }
 }
+
+
+/* ============================================================
+   Expanded, compact Player Focus
+   ============================================================ */
+.featured-player-panel-expanded .featured-player-identity {
+  padding: 7px 8px 3px;
+}
+
+.featured-player-panel-expanded .featured-player-identity h2 {
+  font-size: clamp(18px, 1.45vw, 23px);
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.featured-player-panel-expanded .featured-player-identity p {
+  margin-top: 1px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.featured-player-panel-expanded .featured-player-image {
+  min-height: 300px;
+  height: 300px;
+}
+
+.featured-player-panel-expanded .featured-player-image img {
+  height: 300px;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.featured-player-panel-expanded .featured-stat-section {
+  padding-top: 4px;
+}
+
+.featured-player-panel-expanded .featured-stat-section h3 {
+  margin-bottom: 2px;
+  padding: 0 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .65px;
+}
+
+.featured-player-panel-expanded .featured-stat-section .featured-stat {
+  min-height: 29px;
+  gap: 4px;
+  padding: 4px 6px;
+}
+
+.featured-player-panel-expanded .featured-stat-section .featured-stat span {
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+}
+
+.featured-player-panel-expanded .featured-stat-section .featured-stat strong {
+  flex: 0 0 auto;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.featured-player-panel-expanded .featured-stat-section-two .featured-stat-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 1500px) {
+  .featured-player-panel-expanded .featured-player-image,
+  .featured-player-panel-expanded .featured-player-image img {
+    min-height: 325px;
+    height: 325px;
+  }
+}
+
+
+/* Player Focus: four columns for the 8-item Production and 4-item Efficiency groups */
+.featured-stat-grid-8,
+.featured-stat-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Requested Lineup Card image height */
+.lineup-editor-card-view .shared-lineup-player-image img {
+  height: 80%;
+}
+
+@media (max-width: 900px) {
+  .featured-stat-grid-8,
+  .featured-stat-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* Specificity fix: Production and Efficiency must use four columns */
+.featured-stat-section .featured-stat-grid.featured-stat-grid-8,
+.featured-stat-section .featured-stat-grid.featured-stat-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .featured-stat-section .featured-stat-grid.featured-stat-grid-8,
+  .featured-stat-section .featured-stat-grid.featured-stat-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* Shared lineup images: fill the frame with the original image appearance */
+.shared-lineup-player-image img {
+  object-fit: cover;
+  filter: none;
+}
+
+
+
+
+.shared-builder-link.lineup-image-export-control:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+/* ============================================================
+   Horizontal Lineup Editor list view
+   ============================================================ */
+.lineup-editor-list-view {
+  display: grid;
+  gap: 7px;
+  min-height: clamp(560px, 73vh, 760px);
+  padding: 10px;
+  align-content: stretch;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(37, 74, 111, .16), transparent 45%),
+    #071523;
+}
+
+.lineup-editor-list-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px 108px minmax(0, 1fr) 30px;
+  align-items: stretch;
+  min-width: 0;
+  min-height: 104px;
+  overflow: hidden;
+  border: 1px solid #27405f;
+  border-radius: 10px;
+  color: #f5f8fc;
+  background: linear-gradient(90deg, #12243a, #0a1728 72%);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .16);
+}
+
+.lineup-editor-list-player {
+  cursor: grab;
+}
+
+.lineup-editor-list-player:active {
+  cursor: grabbing;
+}
+
+.lineup-editor-list-player:hover,
+.lineup-editor-list-player:focus-within {
+  border-color: color-mix(
+    in srgb,
+    var(--team-secondary, #e31837) 72%,
+    #456b98
+  );
+  background: linear-gradient(90deg, #18314f, #0d1c30 72%);
+}
+
+.lineup-editor-list-slot {
+  display: grid;
+  place-items: center;
+  border-right: 1px solid rgba(255, 255, 255, .12);
+  color: #d6e4f3;
+  background: rgba(255, 255, 255, .045);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .06em;
+}
+
+.lineup-editor-list-image {
+  min-width: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 80%, rgba(255,255,255,.12), transparent 45%),
+    #0b1a2c;
+}
+
+.lineup-editor-list-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  filter: none;
+}
+
+.lineup-editor-list-copy {
+  display: grid;
+  grid-template-columns: minmax(135px, .85fr) minmax(310px, 1.45fr);
+  gap: 14px;
+  min-width: 0;
+  align-items: center;
+  padding: 10px 12px;
+}
+
+.lineup-editor-list-identity {
+  min-width: 0;
+}
+
+.lineup-editor-list-identity > strong,
+.lineup-editor-list-identity > span,
+.lineup-editor-list-identity > small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lineup-editor-list-identity > strong {
+  font-size: 16px;
+  line-height: 1.15;
+}
+
+.lineup-editor-list-identity > span {
+  margin-top: 5px;
+  color: #c2d0df;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.lineup-editor-list-identity > small {
+  margin-top: 6px;
+  color: var(--team-secondary, #e31837);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+}
+
+.lineup-editor-list-stats {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(42px, 1fr));
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .11);
+  border-radius: 7px;
+  background: rgba(2, 10, 20, .34);
+}
+
+.lineup-editor-list-stats span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  padding: 7px 5px;
+  color: #8fa4ba;
+  font-size: 9px;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.lineup-editor-list-stats span + span {
+  border-left: 1px solid rgba(255, 255, 255, .08);
+}
+
+.lineup-editor-list-stats strong {
+  overflow: hidden;
+  color: #fff;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lineup-editor-list-remove {
+  align-self: start;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  margin: 7px 6px 0 0;
+  place-items: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, .34);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(4, 13, 24, .78);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lineup-editor-list-remove:hover {
+  border-color: var(--team-secondary, #e31837);
+  background: var(--team-secondary, #e31837);
+}
+
+.lineup-editor-list-empty {
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  border-style: dashed;
+}
+
+.lineup-editor-list-empty:hover {
+  border-color: var(--team-secondary, #e31837);
+  background: #102942;
+}
+
+.lineup-editor-list-empty-plus {
+  display: grid;
+  place-self: center;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 50%;
+  font-size: 27px;
+}
+
+.lineup-editor-list-empty > span:last-child {
+  display: grid;
+  gap: 4px;
+  padding: 10px 12px;
+}
+
+.lineup-editor-list-empty strong {
+  font-size: 15px;
+}
+
+.lineup-editor-list-empty small {
+  color: #91a6bc;
+  font-size: 11px;
+}
+
+/* Drop targets should communicate that all three editor views swap players. */
+.mockup-court-slot:has(.court-player-card):hover,
+.lineup-editor-player-tile:hover,
+.lineup-editor-list-player:hover {
+  outline: 1px solid rgba(255, 255, 255, .08);
+}
+
+@media (max-width: 900px) {
+  .lineup-editor-view-toggle {
+    width: 100%;
+  }
+
+  .lineup-editor-view-toggle button {
+    flex: 1 1 0;
+  }
+
+  .lineup-editor-list-view {
+    min-height: 0;
+  }
+
+  .lineup-editor-list-row {
+    grid-template-columns: 36px 82px minmax(0, 1fr) 28px;
+    min-height: 98px;
+  }
+
+  .lineup-editor-list-copy {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 8px;
+  }
+
+  .lineup-editor-list-identity > strong {
+    font-size: 14px;
+  }
+
+  .lineup-editor-list-identity > small {
+    display: none;
+  }
+
+  .lineup-editor-list-stats {
+    grid-template-columns: repeat(6, minmax(34px, 1fr));
+  }
+
+  .lineup-editor-list-stats span {
+    padding: 5px 2px;
+    font-size: 8px;
+  }
+
+  .lineup-editor-list-stats strong {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 560px) {
+  .lineup-editor-list-row {
+    grid-template-columns: 32px 72px minmax(0, 1fr) 26px;
+  }
+
+  .lineup-editor-list-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lineup-editor-list-stats span:nth-child(4) {
+    border-left: 0;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+  }
+
+  .lineup-editor-list-stats span:nth-child(n + 5) {
+    border-top: 1px solid rgba(255, 255, 255, .08);
+  }
+}
+
+
+/* ============================================================
+   Horizontal List editor refinements — cumulative responsive pass
+   ============================================================ */
+
+/* Keep all three editor view controls on one line. */
+.lineup-editor-view-toggle {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: max-content;
+  min-width: 300px;
+  flex-wrap: nowrap;
+}
+
+.lineup-editor-view-toggle button {
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* List cards stay compact even on very wide screens. */
+.lineup-editor-list-view {
+  align-content: start;
+}
+
+.lineup-editor-list-row {
+  height: clamp(112px, 11vw, 150px);
+  min-height: 112px;
+  max-height: 150px;
+}
+
+.lineup-editor-list-player {
+  display: grid;
+  grid-template-columns:
+    42px
+    minmax(150px, 24%)
+    minmax(0, 1fr)
+    34px;
+  align-items: stretch;
+}
+
+.lineup-editor-list-image {
+  width: 100%;
+  min-width: 150px;
+  height: 100%;
+  min-height: 0;
+  max-height: 150px;
+}
+
+.lineup-editor-list-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.lineup-editor-list-copy {
+  min-width: 0;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(150px, .72fr) minmax(300px, 1.28fr);
+  align-items: stretch;
+  gap: 14px;
+  padding: 8px 12px;
+}
+
+.lineup-editor-list-identity {
+  align-self: center;
+}
+
+.lineup-editor-list-identity > strong {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.lineup-editor-list-identity > span,
+.lineup-editor-list-identity > small {
+  color: #b9c8dc;
+  font-size: 14px;
+  font-weight: 850;
+  line-height: 1.25;
+}
+
+.lineup-editor-list-identity > small {
+  display: block;
+  margin-top: 5px;
+}
+
+/* Two rows of three stats filling the available card height. */
+.lineup-editor-list-stats {
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  align-self: stretch;
+  overflow: hidden;
+  border: 1px solid #29415f;
+  border-radius: 9px;
+}
+
+.lineup-editor-list-stats > span {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  padding: 5px 9px;
+  color: #9fb0c6;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  border-right: 1px solid #29415f;
+  border-bottom: 1px solid #29415f;
+  background: #10223a;
+}
+
+.lineup-editor-list-stats > span:nth-child(3n) {
+  border-right: 0;
+}
+
+.lineup-editor-list-stats > span:nth-child(n + 4) {
+  border-bottom: 0;
+}
+
+.lineup-editor-list-stats strong {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.lineup-editor-list-slot {
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.lineup-editor-list-remove {
+  font-size: 22px;
+}
+
+@media (max-width: 900px) {
+  /* The horizontal List is the narrow-screen workspace, so hide the well. */
+  .roster-panel,
+  .player-pool {
+    display: none !important;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lineup-editor-header {
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lineup-editor-header-controls {
+    min-width: 0;
+  }
+
+  .lineup-editor-view-toggle {
+    width: 100%;
+    min-width: 0;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .lineup-editor-view-toggle button {
+    padding-inline: 8px;
+    font-size: 12px;
+  }
+
+  .lineup-editor-list-row {
+    height: 106px;
+    min-height: 106px;
+    max-height: 106px;
+  }
+
+  .lineup-editor-list-player {
+    grid-template-columns:
+      36px
+      minmax(132px, 31%)
+      minmax(0, 1fr)
+      32px;
+  }
+
+  .lineup-editor-list-image {
+    min-width: 132px;
+    max-height: 106px;
+  }
+
+  .lineup-editor-list-copy {
+    grid-template-columns: minmax(120px, .62fr) minmax(250px, 1.38fr);
+    gap: 10px;
+    padding: 7px 9px;
+  }
+
+  .lineup-editor-list-identity > strong {
+    font-size: 19px;
+  }
+
+  .lineup-editor-list-identity > span,
+  .lineup-editor-list-identity > small {
+    font-size: 13px;
+  }
+
+  .lineup-editor-list-stats > span {
+    padding: 4px 7px;
+    font-size: 13px;
+  }
+
+  .lineup-editor-list-stats strong {
+    font-size: 18px;
+  }
+
+  /* Keep Court cards readable instead of shrinking them into slivers. */
+  .mockup-court-panel {
+    overflow-x: auto;
+  }
+
+  .mockup-court-stage {
+    min-width: 720px;
+  }
+
+  .mockup-court-slot {
+    width: 156px !important;
+  }
+
+  .mockup-court-slot .player-photo-wrap {
+    height: 104px !important;
+  }
+
+  .mockup-court-slot .player-position-banner {
+    min-height: 36px;
+    font-size: 15px;
+  }
+
+  .mockup-court-slot .court-player-name {
+    font-size: 13px;
+  }
+
+  /* Never allow the Cards view to form an awkward 4 + 1 layout. */
+  .lineup-editor-card-view .shared-lineup-card-players {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .lineup-editor-header {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .lineup-editor-header-controls,
+  .lineup-editor-view-toggle {
+    width: 100%;
+  }
+
+  .lineup-editor-list-row {
+    height: 98px;
+    min-height: 98px;
+    max-height: 98px;
+  }
+
+  .lineup-editor-list-player {
+    grid-template-columns:
+      32px
+      minmax(118px, 34%)
+      minmax(0, 1fr)
+      30px;
+  }
+
+  .lineup-editor-list-image {
+    min-width: 118px;
+    max-height: 98px;
+  }
+
+  .lineup-editor-list-copy {
+    grid-template-columns: minmax(100px, .58fr) minmax(210px, 1.42fr);
+    gap: 8px;
+    padding: 6px 8px;
+  }
+
+  .lineup-editor-list-identity > strong {
+    font-size: 18px;
+  }
+
+  .lineup-editor-list-stats > span {
+    font-size: 12px;
+  }
+
+  .lineup-editor-list-stats strong {
+    font-size: 17px;
+  }
+
+  .mockup-court-stage {
+    min-width: 680px;
+  }
+
+  .mockup-court-slot {
+    width: 150px !important;
+  }
+
+  .lineup-editor-card-view .shared-lineup-card-players {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .lineup-editor-card-view .shared-lineup-card-players {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ============================================================
+   Fixed five-column Cards view + larger open logo
+   ============================================================ */
+
+/* Cards view always stays in one five-card row. Users on narrower
+   screens can use the default List view instead. */
+.lineup-editor-card-view .shared-lineup-card-players {
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+}
+
+@media (max-width: 900px) {
+  .lineup-editor-card-view {
+    overflow-x: auto;
+  }
+
+  .lineup-editor-card-view .shared-lineup-card-players {
+    min-width: 760px;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 680px) {
+  .lineup-editor-card-view .shared-lineup-card-players {
+    min-width: 720px;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .lineup-editor-card-view .shared-lineup-card-players {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Larger top-left team logo with no surrounding circle/container. */
+.district-brand-mark {
+  width: 82px;
+  height: 82px;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.district-brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 680px) {
+  .district-brand-mark {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+/* ============================================================
+   Exact 900px Cards fix
+   The global shared-page responsive rule was making the fifth
+   editor card span the full row. Keep it as a normal grid item.
+   ============================================================ */
+@media (max-width: 900px) {
+  .lineup-editor-card-view .shared-lineup-player-tile:last-child {
+    grid-column: auto !important;
+    max-width: none !important;
+    width: auto !important;
+    justify-self: stretch !important;
+  }
+}
+
+
+/* ============================================================
+   Reactive Court and Cards sizing
+   Keep five columns while allowing cards to shrink naturally.
+   ============================================================ */
+
+/* Cards view: always five columns, no minimum card width. */
+.lineup-editor-card-view {
+  overflow-x: hidden;
+}
+
+.lineup-editor-card-view .shared-lineup-card-players {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  grid-auto-flow: row;
+  grid-auto-columns: auto;
+  min-width: 0 !important;
+  width: 100%;
+  gap: 0;
+}
+
+.lineup-editor-card-view .shared-lineup-player-tile,
+.lineup-editor-card-view .lineup-editor-empty-card {
+  min-width: 0 !important;
+  width: 100%;
+  max-width: none !important;
+}
+
+/* Preserve the exact fifth-card fix at the 900px breakpoint. */
+@media (max-width: 900px) {
+  .lineup-editor-card-view .shared-lineup-card-players {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    min-width: 0 !important;
+  }
+
+  .lineup-editor-card-view .shared-lineup-player-tile:last-child,
+  .lineup-editor-card-view .lineup-editor-empty-card:last-child {
+    grid-column: auto !important;
+    max-width: none !important;
+    justify-self: stretch !important;
+  }
+}
+
+/* Court view: allow positioned player cards to scale down with the court. */
+.mockup-court-stage {
+  container-type: inline-size;
+}
+
+.mockup-court-slot {
+  width: clamp(96px, 18cqw, 176px) !important;
+  min-width: 0 !important;
+}
+
+.mockup-court-slot .court-player-card {
+  width: 100%;
+  min-width: 0 !important;
+}
+
+@container (max-width: 760px) {
+  .mockup-court-slot {
+    width: clamp(88px, 17cqw, 146px) !important;
+  }
+}
+
+@container (max-width: 590px) {
+  .mockup-court-slot {
+    width: clamp(80px, 16cqw, 126px) !important;
+  }
+}
+
+@container (max-width: 470px) {
+  .mockup-court-slot {
+    width: clamp(72px, 15cqw, 108px) !important;
+  }
+}
+
+
+/* ============================================================
+   Responsive fixed 2-1-2 court layout
+   Cards scale continuously and stay close without overlapping.
+   ============================================================ */
+
+.mockup-court-stage.formation-2-1-2 {
+  container-type: inline-size;
+  min-width: 0;
+}
+
+/* Continuous scaling tied directly to court width.
+   28cqw keeps each two-card row nearly touching at x=36/64. */
+.mockup-court-stage.formation-2-1-2 .mockup-court-slot {
+  width: clamp(78px, 27cqw, 176px) !important;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+.mockup-court-stage.formation-2-1-2 .court-player-card {
+  width: 100%;
+  min-width: 0 !important;
+  max-width: none !important;
+}
+
+/* Keep the card height visually consistent while the width compresses. */
+.mockup-court-stage.formation-2-1-2 .player-position-banner {
+  min-height: 36px;
+}
+
+.mockup-court-stage.formation-2-1-2 .player-photo-wrap {
+  height: 116px;
+}
+
+.mockup-court-stage.formation-2-1-2 .court-player-name {
+  min-height: 36px;
+}
+
+/* Scale internal text and controls with the court width so the cards
+   remain usable as they narrow. */
+.mockup-court-stage.formation-2-1-2 .player-position-banner {
+  font-size: clamp(11px, 1.7cqw, 18px);
+  padding-inline: clamp(3px, .7cqw, 8px);
+}
+
+.mockup-court-stage.formation-2-1-2 .court-player-name {
+  font-size: clamp(9px, 1.35cqw, 14px);
+  padding-inline: clamp(3px, .65cqw, 8px);
+}
+
+.mockup-court-stage.formation-2-1-2 .player-number-badge {
+  min-width: clamp(24px, 3.6cqw, 38px);
+  padding:
+    clamp(3px, .45cqw, 5px)
+    clamp(4px, .65cqw, 8px);
+  font-size: clamp(9px, 1.25cqw, 15px);
+}
+
+.mockup-court-stage.formation-2-1-2 .player-close {
+  width: clamp(19px, 2.7cqw, 24px);
+  height: clamp(19px, 2.7cqw, 24px);
+  font-size: clamp(13px, 1.8cqw, 18px);
+}
+
+.mockup-court-stage.formation-2-1-2 .court-player-stats {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  padding: clamp(2px, .5cqw, 6px);
+}
+
+.mockup-court-stage.formation-2-1-2 .court-player-stats span {
+  min-width: 0;
+  padding-inline: 1px;
+  font-size: clamp(5px, .58cqw, 7px);
+}
+
+.mockup-court-stage.formation-2-1-2 .court-player-stats b {
+  font-size: clamp(8px, .9cqw, 10px);
+}
+
+/* At very narrow court widths, keep shrinking rather than stopping. */
+@container (max-width: 620px) {
+  .mockup-court-stage.formation-2-1-2 .mockup-court-slot {
+    width: clamp(72px, 26.5cqw, 150px) !important;
+  }
+}
+
+@container (max-width: 500px) {
+  .mockup-court-stage.formation-2-1-2 .mockup-court-slot {
+    width: clamp(66px, 26cqw, 126px) !important;
+  }
+
+  .mockup-court-stage.formation-2-1-2 .court-player-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (max-width: 400px) {
+  .mockup-court-stage.formation-2-1-2 .mockup-court-slot {
+    width: clamp(60px, 25.5cqw, 104px) !important;
+  }
+
+  .mockup-court-stage.formation-2-1-2 .player-photo-wrap {
+    height: 104px;
+  }
+}

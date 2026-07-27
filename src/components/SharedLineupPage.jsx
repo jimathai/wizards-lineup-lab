@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import AnalyticsPanel from './AnalyticsPanel'
 import PlayerCard from './PlayerCard'
 import { getPublicSharedLineup } from '../services/sharedLineupService'
+import { downloadLineupImage } from '../utils/shareLineupImage'
 
 const FORMATIONS = {
   '2-1-2': {
@@ -28,6 +29,8 @@ export default function SharedLineupPage({ lineupId }) {
   const [error, setError] = useState(null)
   const [statMode, setStatMode] = useState('current')
   const [viewMode, setViewMode] = useState('card')
+  const [creatingImage, setCreatingImage] = useState(false)
+  const captureRef = useRef(null)
 
   useEffect(() => {
     let cancelled = false
@@ -56,6 +59,22 @@ export default function SharedLineupPage({ lineupId }) {
     '--team-glow': lineup?.team?.secondary_color || '#E31837',
   }), [lineup])
 
+  const handleDownloadImage = async () => {
+    try {
+      setCreatingImage(true)
+      await downloadLineupImage({
+        node: captureRef.current,
+        lineupName: lineup?.name || 'lineup',
+      })
+    } catch (imageError) {
+      window.alert(
+        imageError?.message || 'Unable to create the lineup image.',
+      )
+    } finally {
+      setCreatingImage(false)
+    }
+  }
+
   if (loading) {
     return <main className="shared-lineup-status">Loading lineup…</main>
   }
@@ -78,7 +97,7 @@ export default function SharedLineupPage({ lineupId }) {
   return (
     <div className="app-frame shared-lineup-page" style={theme}>
       <main className="shared-lineup-presentation">
-        <section className="shared-lineup-main-panel">
+        <section className="shared-lineup-main-panel" ref={captureRef}>
           <div className="shared-lineup-floating-bar">
             <h1>{lineup.name}</h1>
 
@@ -208,6 +227,15 @@ export default function SharedLineupPage({ lineupId }) {
                 <option value="career">Career</option>
               </select>
             </label>
+
+            <button
+              type="button"
+              className="shared-builder-link lineup-image-export-control"
+              onClick={handleDownloadImage}
+              disabled={creatingImage}
+            >
+              {creatingImage ? 'Creating Image…' : 'Download Image'}
+            </button>
 
             <a className="shared-builder-link" href="/">
               Build a Lineup

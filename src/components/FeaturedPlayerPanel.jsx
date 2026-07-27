@@ -17,15 +17,43 @@ const displayValue = (value, suffix = '') =>
     ? '—'
     : `${value}${suffix}`
 
-function StatGroup({ title, items }) {
-  return (
-    <section className="featured-stat-section">
-      <h3>{title}</h3>
+const displayInteger = (value, suffix = '') => {
+  if (value === undefined || value === null || value === '') return '—'
 
+  const number = Number(value)
+  return Number.isFinite(number)
+    ? `${Math.trunc(number)}${suffix}`
+    : `${value}${suffix}`
+}
+
+const displayMeasurement = (value, suffix = '') => {
+  if (value === undefined || value === null || value === '') return '—'
+  if (typeof value === 'number') return `${Math.trunc(value)}${suffix}`
+
+  const text = String(value).trim()
+  const numericMeasurement = text.match(/^([+-]?)(\d+(?:\.\d+)?)(.*)$/)
+
+  if (!numericMeasurement || text.includes("'")) {
+    return `${text}${suffix}`
+  }
+
+  const [, sign, number, existingSuffix] = numericMeasurement
+  return `${sign}${Math.trunc(Number(number))}${existingSuffix}${suffix}`
+}
+
+const displayPick = (player) => {
+  if (player.draftPick === undefined || player.draftPick === null || player.draftPick === '') {
+    return player.draftYear ? 'U' : '—'
+  }
+  return `#${player.draftPick}`
+}
+
+function StatGroup({ title, items, className = '' }) {
+  return (
+    <section className={`featured-stat-section ${className}`.trim()}>
+      <h3>{title}</h3>
       <div
-        className={`featured-stat-grid ${
-          items.length === 6 ? 'featured-stat-grid-six' : ''
-        }`}
+        className={`featured-stat-grid featured-stat-grid-${items.length}`}
       >
         {items.map((item) => (
           <div className="featured-stat" key={item.label}>
@@ -61,28 +89,46 @@ export default function FeaturedPlayerPanel({
     { label: 'Stl', value: displayValue(stats.stl) },
     { label: 'Blk', value: displayValue(stats.blk) },
     { label: '3PT', value: displayValue(stats.threePm) },
+    { label: 'TOV', value: displayValue(stats.tov) },
+    { label: '+/-', value: displayValue(stats.plusMinus) },
   ]
 
   const efficiency = [
-    { label: 'FG%', value: displayValue(stats.fgPct) },
-    { label: '3P%', value: displayValue(stats.threePct) },
-    { label: 'FT%', value: displayValue(stats.ftPct) },
+    { label: 'FG', value: displayInteger(stats.fgPct, '%') },
+    { label: '3P', value: displayInteger(stats.threePct, '%') },
+    { label: 'FT', value: displayInteger(stats.ftPct, '%') },
+    { label: 'TS', value: displayInteger(stats.trueShootingPct, '%') },
+  ]
+
+  const bio = [
+    { label: 'Age', value: displayValue(player.age) },
+    { label: 'Exp', value: displayValue(player.experience) },
+    {
+      label: 'From',
+      value: displayValue(player.college || player.country),
+    },
+  ]
+
+  const draft = [
+    { label: 'Year', value: displayValue(player.draftYear) },
+    { label: 'Pick', value: displayPick(player) },
+    { label: 'Shoots', value: displayValue(player.shootingHand) },
   ]
 
   const measurements = [
-    { label: 'Height', value: displayValue(player.height) },
-    { label: 'Weight', value: displayValue(player.weight) },
-    { label: 'Vertical', value: displayValue(player.vertical) },
-    { label: 'Wingspan', value: displayValue(player.wingspan) },
+    { label: 'Height', value: displayMeasurement(player.height) },
+    { label: 'Weight', value: displayMeasurement(player.weight, ' lbs') },
+    { label: 'Vertical', value: displayMeasurement(player.vertical) },
+    { label: 'Wingspan', value: displayMeasurement(player.wingspan) },
     {
       label: 'Standing Reach',
-      value: displayValue(player.standingReach),
+      value: displayMeasurement(player.standingReach),
     },
-    { label: 'Ape Index', value: displayValue(player.apeIndex) },
+    { label: 'Ape Index', value: displayMeasurement(player.apeIndex) },
   ]
 
   return (
-    <aside className="featured-player-panel">
+    <aside className="featured-player-panel featured-player-panel-expanded">
       <div className="featured-player-identity">
         <h2>{player.name}</h2>
         <p>
@@ -107,6 +153,8 @@ export default function FeaturedPlayerPanel({
       <div className="featured-player-stat-sections">
         <StatGroup title="Production" items={production} />
         <StatGroup title="Efficiency" items={efficiency} />
+        <StatGroup title="Bio" items={bio} />
+        <StatGroup title="Draft Profile" items={draft} />
         <StatGroup title="Measurements" items={measurements} />
       </div>
     </aside>

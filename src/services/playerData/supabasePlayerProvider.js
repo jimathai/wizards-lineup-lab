@@ -33,11 +33,17 @@ const mapStats = (row) => ({
   fgPct: decimalToPercent(row.field_goal_percentage),
   ftPct: decimalToPercent(row.free_throw_percentage),
   threePct: decimalToPercent(row.three_point_percentage),
-  plusMinus: null,
+  plusMinus: numberOrNull(row.plus_minus),
+  trueShootingPct: decimalToPercent(row.true_shooting_percentage),
 })
 
-const mapRosterRow = (row, careerRow = null) => {
-  const current = mapStats(row)
+const mapRosterRow = (
+  row,
+  careerRow = null,
+  playerProfile = null,
+  currentExtra = null,
+) => {
+  const current = mapStats({ ...row, ...(currentExtra || {}) })
   const career = careerRow ? mapStats(careerRow) : null
   const appId = row.legacy_player_id ?? row.player_id
 
@@ -53,6 +59,10 @@ const mapRosterRow = (row, careerRow = null) => {
     experience: row.experience ?? null,
     college: row.college_country || '',
     country: '',
+    draftYear: playerProfile?.draft_year ?? row.draft_year ?? null,
+    draftPick: playerProfile?.draft_pick ?? row.draft_pick ?? null,
+    shootingHand:
+      playerProfile?.shooting_hand || row.shooting_hand || '',
     height: inchesToDisplay(row.height_inches),
     weight: numberOrNull(row.weight_pounds),
     wingspan: inchesToDisplay(row.wingspan_inches),
@@ -117,17 +127,56 @@ const getCareerStatsByPlayerId = async (playerIds) => {
   )
 }
 
-const mapRosterRows = async (rows) => {
-  const careerStatsByPlayerId = await getCareerStatsByPlayerId(
-    rows.map((row) => row.player_id),
-  )
+const getPlayerProfilesById = async (playerIds) => {
+  if (!playerIds.length) return new Map()
 
-  return rows.map((row) =>
-    mapRosterRow(
+  const { data, error } = await supabase
+    .from('players')
+    .select('id,draft_year,draft_pick,shooting_hand')
+    .in('id', playerIds)
+
+  if (error) throw error
+  return new Map((data || []).map((row) => [String(row.id), row]))
+}
+
+const getCurrentExtrasByPlayerId = async (playerIds) => {
+  if (!playerIds.length) return new Map()
+
+  const { data, error } = await supabase
+    .from('player_stats')
+    .select('player_id,season,plus_minus,true_shooting_percentage')
+    .in('player_id', playerIds)
+    .eq('stat_type', 'current')
+    .order('season', { ascending: false })
+
+  if (error) throw error
+
+  const result = new Map()
+  for (const row of data || []) {
+    const key = String(row.player_id)
+    if (!result.has(key)) result.set(key, row)
+  }
+  return result
+}
+
+const mapRosterRows = async (rows) => {
+  const playerIds = rows.map((row) => row.player_id)
+  const [careerStatsByPlayerId, playerProfilesById, currentExtrasByPlayerId] =
+    await Promise.all([
+      getCareerStatsByPlayerId(playerIds),
+      getPlayerProfilesById(playerIds),
+      getCurrentExtrasByPlayerId(playerIds),
+    ])
+
+  return rows.map((row) => {
+    const key = String(row.player_id)
+    return mapRosterRow(
       row,
-      careerStatsByPlayerId.get(String(row.player_id)) || null,
-    ),
-  )
+      careerStatsByPlayerId.get(key) || null,
+      playerProfilesById.get(key) || null,
+      currentExtrasByPlayerId.get(key) || null,
+    )
+  })
 }
 
 export const supabasePlayerProvider = {
@@ -147,14 +196,8 @@ export const supabasePlayerProvider = {
 
     if (!row) return null
 
-    const careerStatsByPlayerId = await getCareerStatsByPlayerId([
-      row.player_id,
-    ])
-
-    return mapRosterRow(
-      row,
-      careerStatsByPlayerId.get(String(row.player_id)) || null,
-    )
+    const mappedRows = await mapRosterRows([row])
+    return mappedRows[0] || null
   },
 
   async getTeamRoster(team) {
