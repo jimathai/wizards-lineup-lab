@@ -4,6 +4,7 @@ import ArchetypeLegend from './components/ArchetypeLegend'
 import Court from './components/Court'
 import FeaturedPlayerPanel from './components/FeaturedPlayerPanel'
 import FeedbackModal from './components/FeedbackModal'
+import WillDawkinsPage from './components/WillDawkinsPage'
 import LineupCompare from './components/LineupCompare'
 import SharedLineupPage from './components/SharedLineupPage'
 import SharedLineupsPage from './components/SharedLineupsPage'
@@ -17,6 +18,10 @@ import './styles/district-basketball-lab.css'
 export default function App() {
   if (/^\/admin\/?$/i.test(window.location.pathname)) {
     return <AdminPage />
+  }
+
+  if (/^\/(will-dawkins|appreciation)\/?$/i.test(window.location.pathname)) {
+    return <WillDawkinsPage />
   }
 
   const sharedLineupsMatch = window.location.pathname.match(

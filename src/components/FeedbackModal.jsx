@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 
-const INITIAL_FORM = {
+const createInitialForm = (category = 'Suggestion') => ({
   name: '',
   email: '',
-  category: 'Suggestion',
+  category,
   message: '',
   website: '',
-}
+})
 
-export default function FeedbackModal({ open, onClose }) {
-  const [form, setForm] = useState(INITIAL_FORM)
+export default function FeedbackModal({ open, onClose, defaultCategory = 'Suggestion' }) {
+  const [form, setForm] = useState(() => createInitialForm(defaultCategory))
   const [status, setStatus] = useState('idle')
   const [feedback, setFeedback] = useState('')
 
@@ -58,7 +58,7 @@ export default function FeedbackModal({ open, onClose }) {
 
       setStatus('sent')
       setFeedback('Thanks — your message was sent.')
-      setForm(INITIAL_FORM)
+      setForm(createInitialForm(defaultCategory))
     } catch (error) {
       setStatus('error')
       setFeedback(error.message || 'Unable to send your message.')
