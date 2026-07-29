@@ -3,12 +3,14 @@ import AnalyticsPanel from './components/AnalyticsPanel'
 import ArchetypeLegend from './components/ArchetypeLegend'
 import Court from './components/Court'
 import FeaturedPlayerPanel from './components/FeaturedPlayerPanel'
+import FeedbackModal from './components/FeedbackModal'
 import LineupCompare from './components/LineupCompare'
 import SharedLineupPage from './components/SharedLineupPage'
 import SharedLineupsPage from './components/SharedLineupsPage'
 import PlayerPickerModal from './components/PlayerPickerModal'
 import PlayerPool from './components/PlayerPool'
 import useLineupLab from './hooks/useLineupLab'
+import { useState } from 'react'
 
 import './styles/district-basketball-lab.css'
 
@@ -42,6 +44,7 @@ export default function App() {
 }
 
 function LineupLabApp() {
+  const [feedbackOpen, setFeedbackOpen] = useState(false)
   const {
     activeTeam,
     analyticsTarget,
@@ -117,6 +120,13 @@ function LineupLabApp() {
         </div>
 
         <div className="top-controls">
+          <button
+            type="button"
+            className="feedback-nav-button"
+            onClick={() => setFeedbackOpen(true)}
+          >
+            Feedback
+          </button>
           <a className="admin-nav-link" href="/admin">Admin</a>
           <label>
             Stats
@@ -214,6 +224,28 @@ function LineupLabApp() {
 
         </section>
       </main>
+
+      <footer className="site-disclaimer">
+        <strong>Unofficial fan project.</strong>
+        <span>
+          District Basketball Lab is not affiliated with, endorsed by, or
+          sponsored by the NBA, the Washington Wizards, or their affiliates.
+          Team names and marks belong to their respective owners.
+        </span>
+      </footer>
+
+      <button
+        type="button"
+        className="floating-feedback-button"
+        onClick={() => setFeedbackOpen(true)}
+      >
+        Feedback
+      </button>
+
+      <FeedbackModal
+        open={feedbackOpen}
+        onClose={() => setFeedbackOpen(false)}
+      />
 
       <PlayerPickerModal
         open={Boolean(pickerTarget)}

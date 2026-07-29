@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { fetchNbaPlayerStats } from './api/_nbaStats.js'
+import { sendContactMessage } from './api/_contact.js'
 
 const ALLOWED_IMAGE_HOSTS = new Set([
   'cdn.nba.com',
@@ -91,6 +92,43 @@ const nbaStatsPlugin = () => ({
   },
 })
 
-export default defineConfig({
-  plugins: [react(), imageProxyPlugin(), nbaStatsPlugin()],
+
+const contactPlugin = () => ({
+  name: 'district-contact-api',
+  configureServer(server) {
+    server.middlewares.use('/api/contact', async (request, response) => {
+      if (request.method !== 'POST') {
+        response.statusCode = 405
+        response.setHeader('Content-Type', 'application/json')
+        response.end(JSON.stringify({ error: 'Method not allowed.' }))
+        return
+      }
+
+      try {
+        const chunks = []
+        for await (const chunk of request) chunks.push(chunk)
+        const payload = JSON.parse(Buffer.concat(chunks).toString() || '{}')
+        const result = await sendContactMessage(payload)
+        response.statusCode = 200
+        response.setHeader('Content-Type', 'application/json')
+        response.setHeader('Cache-Control', 'no-store')
+        response.end(JSON.stringify({ ok: true, ...result }))
+      } catch (error) {
+        console.error('Development contact API failed:', error)
+        response.statusCode = error.statusCode || 500
+        response.setHeader('Content-Type', 'application/json')
+        response.end(JSON.stringify({
+          error: error.message || 'Unable to send your message.',
+        }))
+      }
+    })
+  },
+})
+
+export default defineConfig(({ mode }) => {
+  Object.assign(process.env, loadEnv(mode, process.cwd(), ''))
+
+  return {
+    plugins: [react(), imageProxyPlugin(), nbaStatsPlugin(), contactPlugin()],
+  }
 })
