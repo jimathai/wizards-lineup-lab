@@ -2,7 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/lineups/:ownerId/:teamId",
+      "destination": "/api/share-page?ownerId=:ownerId&teamId=:teamId"
+    },
+    {
+      "source": "/lineup/:lineupId",
+      "destination": "/api/share-page?lineupId=:lineupId"
+    },
+    {
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
     }
   ]
