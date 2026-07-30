@@ -1,20 +1,42 @@
 import { useEffect, useState } from 'react'
+import { supabase } from '../lib/supabaseClient'
 
-const createInitialForm = (category = 'Suggestion') => ({
+const INITIAL_FORM = {
   name: '',
   email: '',
-  category,
+  category: 'Suggestion',
   message: '',
   website: '',
-})
+}
 
-export default function FeedbackModal({ open, onClose, defaultCategory = 'Suggestion' }) {
-  const [form, setForm] = useState(() => createInitialForm(defaultCategory))
+export default function FeedbackModal({ open, onClose }) {
+  const [form, setForm] = useState(INITIAL_FORM)
   const [status, setStatus] = useState('idle')
   const [feedback, setFeedback] = useState('')
 
   useEffect(() => {
     if (!open) return undefined
+
+    let active = true
+
+    const autofillSignedInEmail = async () => {
+      if (!supabase) return
+
+      const {
+        data: { user },
+        error,
+      } = await supabase.auth.getUser()
+
+      if (!active || error || !user?.email || user.is_anonymous) return
+
+      setForm((current) => (
+        current.email
+          ? current
+          : { ...current, email: user.email }
+      ))
+    }
+
+    autofillSignedInEmail()
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') onClose()
@@ -24,6 +46,7 @@ export default function FeedbackModal({ open, onClose, defaultCategory = 'Sugges
     document.body.classList.add('feedback-modal-open')
 
     return () => {
+      active = false
       document.removeEventListener('keydown', handleKeyDown)
       document.body.classList.remove('feedback-modal-open')
     }
@@ -58,7 +81,7 @@ export default function FeedbackModal({ open, onClose, defaultCategory = 'Sugges
 
       setStatus('sent')
       setFeedback('Thanks — your message was sent.')
-      setForm(createInitialForm(defaultCategory))
+      setForm(INITIAL_FORM)
     } catch (error) {
       setStatus('error')
       setFeedback(error.message || 'Unable to send your message.')
