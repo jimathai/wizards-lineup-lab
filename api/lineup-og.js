@@ -2,10 +2,6 @@ import React from 'react'
 import { ImageResponse } from '@vercel/og'
 import { getSharedLineupMeta } from './_sharedLineupMeta.js'
 
-export const config = {
-  runtime: 'edge',
-}
-
 const h = React.createElement
 
 const playerCard = (player, index) =>
@@ -43,7 +39,6 @@ const playerCard = (player, index) =>
             src: player.image,
             width: 196,
             height: 260,
-            alt: player.name || 'Player',
             style: {
               width: '196px',
               height: '260px',
@@ -107,7 +102,7 @@ export default async function handler(request) {
 
     const primary = meta.team?.primary_color || '#002B5C'
     const secondary = meta.team?.secondary_color || '#E31837'
-    const kicker = meta.isCollection ? 'SHARED LINEUPS' : 'SHARED LINEUP'
+    const heading = meta.isCollection ? 'SHARED LINEUPS' : 'SHARED LINEUP'
     const title = meta.isCollection ? `${meta.teamName} Lineups` : meta.name
 
     return new ImageResponse(
@@ -149,7 +144,7 @@ export default async function handler(request) {
                   letterSpacing: '4px',
                 },
               },
-              kicker,
+              heading,
             ),
             h(
               'div',
