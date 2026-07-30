@@ -87,9 +87,15 @@ const playerCard = (player, index) =>
     ),
   )
 
-export default async function handler(request) {
+export default async function handler(request, response) {
   try {
-    const url = new URL(request.url)
+    const protocol =
+      request.headers['x-forwarded-proto'] ||
+      (request.socket?.encrypted ? 'https' : 'http')
+
+    const host = request.headers.host
+    const url = new URL(request.url, `${protocol}://${host}`)
+
     const meta = await getSharedLineupMeta({
       lineupId: url.searchParams.get('lineupId'),
       ownerId: url.searchParams.get('ownerId'),
@@ -97,15 +103,18 @@ export default async function handler(request) {
     })
 
     if (!meta) {
-      return new Response('Lineup not found', { status: 404 })
+      response.status(404).send('Lineup not found')
+      return
     }
 
     const primary = meta.team?.primary_color || '#002B5C'
     const secondary = meta.team?.secondary_color || '#E31837'
     const heading = meta.isCollection ? 'SHARED LINEUPS' : 'SHARED LINEUP'
-    const title = meta.isCollection ? `${meta.teamName} Lineups` : meta.name
+    const title = meta.isCollection
+      ? `${meta.teamName} Lineups`
+      : meta.name
 
-    return new ImageResponse(
+    const imageResponse = new ImageResponse(
       h(
         'div',
         {
@@ -132,7 +141,13 @@ export default async function handler(request) {
           },
           h(
             'div',
-            { style: { display: 'flex', flexDirection: 'column', gap: '8px' } },
+            {
+              style: {
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px',
+              },
+            },
             h(
               'div',
               {
@@ -203,16 +218,28 @@ export default async function handler(request) {
       {
         width: 1200,
         height: 630,
-        headers: {
-          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=86400',
-        },
       },
     )
+
+    const imageBuffer = Buffer.from(await imageResponse.arrayBuffer())
+
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'image/png')
+    response.setHeader(
+      'Cache-Control',
+      'public, s-maxage=300, stale-while-revalidate=86400',
+    )
+    response.setHeader('Content-Length', imageBuffer.length)
+    response.end(imageBuffer)
   } catch (error) {
     console.error('Lineup OG image failed:', error)
-    return new Response(
-      `Unable to create lineup preview: ${error?.message || 'Unknown error'}`,
-      { status: 500 },
+
+    response.statusCode = 500
+    response.setHeader('Content-Type', 'text/plain; charset=utf-8')
+    response.end(
+      `Unable to create lineup preview: ${
+        error?.stack || error?.message || 'Unknown error'
+      }`,
     )
   }
 }
