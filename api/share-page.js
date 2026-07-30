@@ -37,7 +37,7 @@ export default async function handler(request, response) {
     const imageQuery = lineupId
       ? `lineupId=${encodeURIComponent(lineupId)}`
       : `ownerId=${encodeURIComponent(ownerId)}&teamId=${encodeURIComponent(teamId)}`
-    const imageUrl = `${origin}/api/lineup-og?${imageQuery}`
+    const imageUrl = `${origin}/api/lineup-og?${imageQuery}&v=2`
 
     const indexResponse = await fetch(`${origin}/index.html`)
     if (!indexResponse.ok) {
