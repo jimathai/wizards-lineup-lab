@@ -148,6 +148,18 @@ export default function SharedLineupsPage({ ownerId, teamId }) {
             {team?.city} {team?.name}
           </span>
           <h1>Shared Lineups</h1>
+          <p
+            style={{
+              margin: '5px 0 0',
+              maxWidth: '720px',
+              color: 'rgba(255, 255, 255, 0.72)',
+              fontSize: 'clamp(12px, 0.9vw, 15px)',
+              lineHeight: 1.4,
+            }}
+          >
+            Download a lineup image, paste the copied share link into your
+            post, or use both.
+          </p>
         </div>
 
         <div className="shared-collection-actions">

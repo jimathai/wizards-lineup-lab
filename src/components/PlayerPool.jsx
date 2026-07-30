@@ -14,7 +14,7 @@ export default function PlayerPool({
   error = null,
 }) {
   return (
-    <aside className="roster-panel">
+    <aside className="roster-panel" data-tour="player-well">
       <div className="roster-search-wrap">
         <input
           className="roster-search"

@@ -183,6 +183,7 @@ export default function Court({
         <div className="lineup-editor-header-controls">
           <div
             className="shared-view-toggle lineup-editor-view-toggle"
+            data-tour="view-selector"
             role="group"
             aria-label="Lineup Editor display"
           >

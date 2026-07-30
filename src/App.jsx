@@ -4,6 +4,7 @@ import ArchetypeLegend from './components/ArchetypeLegend'
 import Court from './components/Court'
 import FeaturedPlayerPanel from './components/FeaturedPlayerPanel'
 import FeedbackModal from './components/FeedbackModal'
+import GuidedTour, { GUIDED_TOUR_STORAGE_KEY } from './components/GuidedTour'
 import WillDawkinsPage from './components/WillDawkinsPage'
 import LineupCompare from './components/LineupCompare'
 import SharedLineupPage from './components/SharedLineupPage'
@@ -11,7 +12,7 @@ import SharedLineupsPage from './components/SharedLineupsPage'
 import PlayerPickerModal from './components/PlayerPickerModal'
 import PlayerPool from './components/PlayerPool'
 import useLineupLab from './hooks/useLineupLab'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import './styles/district-basketball-lab.css'
 
@@ -50,6 +51,16 @@ export default function App() {
 
 function LineupLabApp() {
   const [feedbackOpen, setFeedbackOpen] = useState(false)
+  const [tourOpen, setTourOpen] = useState(false)
+
+  useEffect(() => {
+    const hasCompletedTour = window.localStorage.getItem(GUIDED_TOUR_STORAGE_KEY) === 'true'
+    if (!hasCompletedTour) {
+      const timer = window.setTimeout(() => setTourOpen(true), 650)
+      return () => window.clearTimeout(timer)
+    }
+    return undefined
+  }, [])
   const {
     activeTeam,
     analyticsTarget,
@@ -127,17 +138,25 @@ function LineupLabApp() {
         <div className="top-controls">
           <button
             type="button"
+            className="tour-replay-button"
+            onClick={() => setTourOpen(true)}
+          >
+            Help / Tour
+          </button>
+          <button
+            type="button"
             className="feedback-nav-button"
             onClick={() => setFeedbackOpen(true)}
           >
             Feedback
           </button>
           <a className="admin-nav-link" href="/admin">Admin</a>
-          <label>
-            Stats
+          <label className="stat-view-control">
+            <span>Stat View</span>
             <select
               value={statMode}
               onChange={(event) => setStatMode(event.target.value)}
+              aria-label="Stat view"
             >
               <option value="current">2025–26</option>
               <option value="career">Career</option>
@@ -164,6 +183,7 @@ function LineupLabApp() {
         <section className="main-column">
           <section className="lineup-workbench">
             <div
+              data-tour="lineup-editor"
               className={`workbench-court analytics-source ${
                 analyticsTarget.type === 'starters'
                   ? 'analytics-source-active'
@@ -191,7 +211,7 @@ function LineupLabApp() {
               />
             </div>
 
-            <div className="workbench-compare">
+            <div className="workbench-compare" data-tour="saved-lineups">
               <LineupCompare
                 lineups={hydratedLineups}
                 statMode={statMode}
@@ -250,6 +270,11 @@ function LineupLabApp() {
       <FeedbackModal
         open={feedbackOpen}
         onClose={() => setFeedbackOpen(false)}
+      />
+
+      <GuidedTour
+        open={tourOpen}
+        onClose={() => setTourOpen(false)}
       />
 
       <PlayerPickerModal

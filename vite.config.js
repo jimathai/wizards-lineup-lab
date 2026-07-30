@@ -8,6 +8,7 @@ const ALLOWED_IMAGE_HOSTS = new Set([
   'ak-static.cms.nba.com',
   'cdn.celtics.com',
   'pbs.twimg.com',
+  'nujpcmyyewalanzqznxx.supabase.co',
 ])
 
 const imageProxyPlugin = () => ({

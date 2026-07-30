@@ -28,6 +28,7 @@ export default function LineupCompare({
         <button
           type="button"
           className="share-lineups-button"
+          data-tour="share-lineups"
           onClick={onShareLineups}
         >
           Share Lineups
